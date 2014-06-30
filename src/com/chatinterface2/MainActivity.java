@@ -40,6 +40,7 @@ public class MainActivity extends ActionBarActivity {
 		ChatListAdapter mAdapter = new ChatListAdapter(this,
 				mChatList.getArray(), mCurrentUser);
 		mChatList.setAdapter(mAdapter);
+
 	}
 
 }

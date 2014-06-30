@@ -3,6 +3,7 @@ package com.chatinterface2;
 import java.util.ArrayList;
 
 import android.content.Context;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -10,12 +11,14 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 public class ChatListAdapter extends ArrayAdapter<ChatBlock> {
 	private Context mContext;
 	private ArrayList<ChatBlock> mChatBlocks;
 	private int mCurrentUserId;
+	private DisplayMetrics displayMetrics;
 
 	// Here is the constructor.
 	public ChatListAdapter(Context _context, ArrayList<ChatBlock> _chatBlocks,
@@ -24,6 +27,7 @@ public class ChatListAdapter extends ArrayAdapter<ChatBlock> {
 		mContext = _context;
 		mChatBlocks = _chatBlocks;
 		mCurrentUserId = currentId;
+		displayMetrics = mContext.getResources().getDisplayMetrics();
 	}
 
 	// getView returns the views that will then be put into the ListView.
@@ -76,10 +80,18 @@ public class ChatListAdapter extends ArrayAdapter<ChatBlock> {
 
 			@Override
 			public void onClick(View v) {
-				if (mChatContainer.getVisibility() == View.VISIBLE) {
-					mChatContainer.setVisibility(View.INVISIBLE);
+				RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) mChatContainer
+						.getLayoutParams();
+				if (params.width == 0) {
+					// When the button is clicked, if the block is already
+					// hidden, bring it out. Otherwise hide it.
+					params.width = params.width
+							+ (int) ((300 * displayMetrics.density) + 0.5);
+					mChatContainer.setLayoutParams(params);
 				} else {
-					mChatContainer.setVisibility(View.VISIBLE);
+					params.width = params.width
+							- (int) ((300 * displayMetrics.density) + 0.5);
+					mChatContainer.setLayoutParams(params);
 				}
 			}
 

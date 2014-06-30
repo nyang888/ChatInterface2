@@ -12,9 +12,8 @@
 
     <FrameLayout
         android:id="@+id/chat_block_container"
-        android:layout_width="match_parent"
+        android:layout_width="300dp"
         android:layout_height="match_parent"
-        android:layout_marginLeft="30dp"
         android:layout_toLeftOf="@id/toggle_button" />
 
 </RelativeLayout>
