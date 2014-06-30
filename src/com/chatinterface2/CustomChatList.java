@@ -23,6 +23,7 @@ public class CustomChatList extends ListView {
 		super(_context, _attr, _defStyle);
 	}
 
+	// This function adds a JSONObject to the list of chats.
 	public void addJson(JSONObject json) {
 
 		if (json != null) {
