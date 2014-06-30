@@ -1481,7 +1481,7 @@ containing a value of this type.
         public static final int buy_with_google=0x7f07000e;
         public static final int chat=0x7f070050;
         public static final int chat_block_container=0x7f070052;
-        public static final int chat_layout=0x7f070053;
+        public static final int chat_layout_right=0x7f070053;
         public static final int chat_message=0x7f070057;
         public static final int checkbox=0x7f07003f;
         public static final int classic=0x7f070011;
@@ -1602,9 +1602,11 @@ containing a value of this type.
         public static final int abc_search_view=0x7f030016;
         public static final int abc_simple_decor=0x7f030017;
         public static final int activity_main=0x7f030018;
-        public static final int chat_cell=0x7f030019;
-        public static final int support_simple_spinner_dropdown_item=0x7f03001a;
-        public static final int text_chat_block=0x7f03001b;
+        public static final int chat_cell_left=0x7f030019;
+        public static final int chat_cell_right=0x7f03001a;
+        public static final int support_simple_spinner_dropdown_item=0x7f03001b;
+        public static final int text_chat_block_left=0x7f03001c;
+        public static final int text_chat_block_right=0x7f03001d;
     }
     public static final class menu {
         public static final int main=0x7f0c0000;

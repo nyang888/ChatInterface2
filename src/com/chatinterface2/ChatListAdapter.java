@@ -15,12 +15,15 @@ import android.widget.TextView;
 public class ChatListAdapter extends ArrayAdapter<ChatBlock> {
 	private Context mContext;
 	private ArrayList<ChatBlock> mChatBlocks;
+	private int mCurrentUserId;
 
 	// Here is the constructor.
-	public ChatListAdapter(Context _context, ArrayList<ChatBlock> _chatBlocks) {
-		super(_context, R.layout.text_chat_block, _chatBlocks);
+	public ChatListAdapter(Context _context, ArrayList<ChatBlock> _chatBlocks,
+			int currentId) {
+		super(_context, R.layout.text_chat_block_left, _chatBlocks);
 		mContext = _context;
 		mChatBlocks = _chatBlocks;
+		mCurrentUserId = currentId;
 	}
 
 	// getView returns the views that will then be put into the ListView.
@@ -31,29 +34,41 @@ public class ChatListAdapter extends ArrayAdapter<ChatBlock> {
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
 		// Here we need to inflate the layouts to be able to interact with them
-		// better.
-		View mChatView = mInflater.inflate(R.layout.text_chat_block, parent,
-				false);
-		View mChatCell = mInflater.inflate(R.layout.chat_cell, parent, false);
+		// better. In order to differentiate between the current user and the
+		// others, we need to first check each chatBlock for the userId. And
+		// then we inflate the corresponding layout, either left or right.
+		View mChatView;
+		View mChatCell;
+		Button mButton;
+		if (mChatBlocks.get(position).getUserId() == mCurrentUserId) {
+			mChatCell = mInflater.inflate(R.layout.chat_cell_left, parent,
+					false);
+			mButton = (Button) mChatCell.findViewById(R.id.toggle_button);
+			mChatView = mInflater.inflate(R.layout.text_chat_block_left,
+					parent, false);
 
-		// Here we retrieve the views from the inflated layout.
+		} else {
+			mChatCell = mInflater.inflate(R.layout.chat_cell_right, parent,
+					false);
+			mButton = (Button) mChatCell.findViewById(R.id.toggle_button);
+			mChatView = mInflater.inflate(R.layout.text_chat_block_right,
+					parent, false);
+		}
+
+		// Here we retrieve the remaining views from the layouts.
 		TextView mNameView = (TextView) mChatView
 				.findViewById(R.id.profile_name);
 		TextView mDateView = (TextView) mChatView.findViewById(R.id.time_stamp);
 		TextView mMessageView = (TextView) mChatView
 				.findViewById(R.id.chat_message);
-		final FrameLayout mChatContainer = (FrameLayout) mChatCell
-				.findViewById(R.id.chat_block_container); // The value is final
-															// in order to be
-															// passed into the
-															// OnClickListener
-		Button mButton = (Button) mChatCell.findViewById(R.id.toggle_button);
 
 		// Here we set the values for each of the views.
 		mNameView.setText(mChatBlocks.get(position).getUsername());
 		mDateView.setText(mChatBlocks.get(position).getDate().toString());
 		mMessageView.setText(((TextBlock) mChatBlocks.get(position)).getText());
-		mButton.setVisibility(View.VISIBLE);
+		final FrameLayout mChatContainer = (FrameLayout) mChatCell
+				.findViewById(R.id.chat_block_container);
+
 		mChatContainer.addView(mChatView);
 
 		// Here we provide instructions for the button.

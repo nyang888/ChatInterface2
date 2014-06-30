@@ -16,6 +16,12 @@
         android:id="@+id/chat"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
+        android:divider="#00ffffff"
+        android:dividerHeight="30dp"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:isScrollContainer="true"
+        android:scrollbars="none"
         android:stackFromBottom="true"
         android:transcriptMode="normal" />
 
