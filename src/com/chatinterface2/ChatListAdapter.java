@@ -103,6 +103,25 @@ public class ChatListAdapter extends ArrayAdapter<ChatBlock> {
 			}
 
 		});
+		mChatContainer.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) mChatContainer
+						.getLayoutParams();
+				if (params.width == 0) {
+					// When the button is clicked, if the block is already
+					// hidden, bring it out. Otherwise hide it.
+					params.width = (int) ((300 * displayMetrics.density) + 0.5);
+					mChatContainer.setLayoutParams(params);
+				} else {
+					if (mChatContainer.getWidth() > 0)
+						params.width = 0;
+					mChatContainer.setLayoutParams(params);
+				}
+			}
+
+		});
 
 		// Here we set up an OnTouchListener to deal with swipes.
 		if (mChatBlocks.get(position).getUserId() == mCurrentUserId) {
@@ -133,7 +152,7 @@ public class ChatListAdapter extends ArrayAdapter<ChatBlock> {
 					case MotionEvent.ACTION_UP: {
 						Log.d("onTouch", "ACTION_UP");
 						x2 = (int) event.getRawX();
-						if (x2 <= x1) {
+						if (x2 < x1) {
 							params.width = (int) ((300 * displayMetrics.density) + 0.5);
 						} else {
 							if (mChatContainer.getWidth() > 0)
@@ -145,7 +164,7 @@ public class ChatListAdapter extends ArrayAdapter<ChatBlock> {
 					case MotionEvent.ACTION_CANCEL: {
 						Log.d("onTouch", "ACTION_CANCEL");
 						x2 = (int) event.getRawX();
-						if (x2 <= x1) {
+						if (x2 < x1) {
 							params.width = (int) ((300 * displayMetrics.density) + 0.5);
 						} else {
 							if (mChatContainer.getWidth() > 0)
@@ -184,7 +203,7 @@ public class ChatListAdapter extends ArrayAdapter<ChatBlock> {
 					case MotionEvent.ACTION_UP: {
 						Log.d("onTouch", "ACTION_UP");
 						x2 = (int) event.getRawX();
-						if (x2 <= x1) {
+						if (x2 < x1) {
 							params.width = (int) ((300 * displayMetrics.density) + 0.5);
 						} else {
 							if (mChatContainer.getWidth() > 0)
@@ -196,7 +215,7 @@ public class ChatListAdapter extends ArrayAdapter<ChatBlock> {
 					case MotionEvent.ACTION_CANCEL: {
 						Log.d("onTouch", "ACTION_CANCEL");
 						x2 = (int) event.getRawX();
-						if (x2 <= x1) {
+						if (x2 < x1) {
 							params.width = (int) ((300 * displayMetrics.density) + 0.5);
 						} else {
 							if (mChatContainer.getWidth() > 0)
@@ -237,7 +256,7 @@ public class ChatListAdapter extends ArrayAdapter<ChatBlock> {
 					case MotionEvent.ACTION_UP: {
 						Log.d("onTouch", "ACTION_UP");
 						x2 = (int) event.getRawX();
-						if (x2 < x1) {
+						if (x2 <= x1) {
 							if (mChatContainer.getWidth() > 0)
 								params.width = 0;
 						} else {
@@ -249,7 +268,7 @@ public class ChatListAdapter extends ArrayAdapter<ChatBlock> {
 					case MotionEvent.ACTION_CANCEL: {
 						Log.d("onTouch", "ACTION_CANCEL");
 						x2 = (int) event.getRawX();
-						if (x2 < x1) {
+						if (x2 <= x1) {
 							if (mChatContainer.getWidth() > 0)
 								params.width = 0;
 						} else {
@@ -288,7 +307,7 @@ public class ChatListAdapter extends ArrayAdapter<ChatBlock> {
 						Log.d("onTouch", "ACTION_UP");
 						x2 = (int) event.getRawX();
 
-						if (x2 < x1) {
+						if (x2 <= x1) {
 							if (mChatContainer.getWidth() > 0)
 								params.width = 0;
 						} else {
@@ -300,7 +319,7 @@ public class ChatListAdapter extends ArrayAdapter<ChatBlock> {
 					case MotionEvent.ACTION_CANCEL: {
 						Log.d("onTouch", "ACTION_CANCEL");
 						x2 = (int) event.getRawX();
-						if (x2 < x1) {
+						if (x2 <= x1) {
 							if (mChatContainer.getWidth() > 0)
 								params.width = 0;
 						} else {
