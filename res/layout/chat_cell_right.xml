@@ -5,8 +5,10 @@
 
     <Button
         android:id="@+id/toggle_button"
-        android:layout_width="20dp"
-        android:layout_height="fill_parent"
+        android:layout_width="25dp"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true" 
+        android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:background="#ffea4a5a" />
 

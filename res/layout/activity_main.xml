@@ -12,11 +12,41 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
+    <RelativeLayout
+        android:id="@+id/send_message_block"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:background="#ffffffff" >
+
+        <Button
+            android:id="@+id/send_button"
+            android:layout_width="wrap_content"
+            android:layout_height="23dp"
+            android:layout_alignParentRight="true"
+            android:background="#ff7d7d7d"
+            android:text="@string/send" />
+
+        <EditText
+            android:id="@+id/input_message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_toLeftOf="@id/send_button"
+            android:background="#ffffffff"
+            android:hint="@string/message_hint"
+            android:textSize="20sp" />
+    </RelativeLayout>
+
     <com.chatinterface2.CustomChatList
         android:id="@+id/chat"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/send_message_block"
         android:animateLayoutChanges="true"
+        android:clickable="false"
         android:divider="#00ffffff"
         android:dividerHeight="30dp"
         android:focusable="false"

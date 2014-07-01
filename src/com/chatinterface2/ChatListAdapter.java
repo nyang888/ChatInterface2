@@ -5,8 +5,10 @@ import java.util.ArrayList;
 import android.content.Context;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -44,7 +46,7 @@ public class ChatListAdapter extends ArrayAdapter<ChatBlock> {
 		View mChatView;
 		View mChatCell;
 		Button mButton;
-		if (mChatBlocks.get(position).getUserId() == mCurrentUserId) {
+		if (mChatBlocks.get(position).getUserId() != mCurrentUserId) {
 			mChatCell = mInflater.inflate(R.layout.chat_cell_left, parent,
 					false);
 			mButton = (Button) mChatCell.findViewById(R.id.toggle_button);
@@ -70,6 +72,11 @@ public class ChatListAdapter extends ArrayAdapter<ChatBlock> {
 		mNameView.setText(mChatBlocks.get(position).getUsername());
 		mDateView.setText(mChatBlocks.get(position).getDate().toString());
 		mMessageView.setText(((TextBlock) mChatBlocks.get(position)).getText());
+
+		mNameView.setHorizontallyScrolling(true);
+		mDateView.setHorizontallyScrolling(true);
+		mMessageView.setHorizontallyScrolling(true);
+
 		final FrameLayout mChatContainer = (FrameLayout) mChatCell
 				.findViewById(R.id.chat_block_container);
 
@@ -85,18 +92,139 @@ public class ChatListAdapter extends ArrayAdapter<ChatBlock> {
 				if (params.width == 0) {
 					// When the button is clicked, if the block is already
 					// hidden, bring it out. Otherwise hide it.
-					params.width = params.width
-							+ (int) ((300 * displayMetrics.density) + 0.5);
+					params.width = (int) ((300 * displayMetrics.density) + 0.5);
 					mChatContainer.setLayoutParams(params);
 				} else {
-					params.width = params.width
-							- (int) ((300 * displayMetrics.density) + 0.5);
+					params.width = 0;
 					mChatContainer.setLayoutParams(params);
 				}
 			}
 
 		});
 
+		// Here we set up an OnTouchListener to deal with swipes.
+		if (mChatBlocks.get(position).getUserId() == mCurrentUserId) {
+			// In the case that the chatBlock in on the right:
+			mChatContainer.setOnTouchListener(new OnTouchListener() {
+				private int x1;
+				private int x2;
+				RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) mChatContainer
+						.getLayoutParams();
+
+				@Override
+				public boolean onTouch(View v, MotionEvent event) {
+					switch (event.getAction()) {
+					case MotionEvent.ACTION_DOWN: {
+						x1 = (int) event.getRawX();
+					}
+					case MotionEvent.ACTION_MOVE: {
+						x2 = (int) event.getRawX();
+						params.width = (int) (displayMetrics.widthPixels - x2);
+					}
+					case MotionEvent.ACTION_UP: {
+						x2 = (int) event.getRawX();
+						if (x2 <= x1) {
+							params.width = (int) ((300 * displayMetrics.density) + 0.5);
+						} else {
+							params.width = 0;
+						}
+					}
+					}
+					mChatContainer.setLayoutParams(params);
+					return true;
+				}
+			});
+			mButton.setOnTouchListener(new OnTouchListener() {
+				private int x1;
+				private int x2;
+				RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) mChatContainer
+						.getLayoutParams();
+
+				@Override
+				public boolean onTouch(View v, MotionEvent event) {
+					switch (event.getAction()) {
+					case MotionEvent.ACTION_DOWN: {
+						x1 = (int) event.getRawX();
+					}
+					case MotionEvent.ACTION_MOVE: {
+						x2 = (int) event.getRawX();
+						params.width = (int) (displayMetrics.widthPixels - x2);
+					}
+					case MotionEvent.ACTION_UP: {
+						x2 = (int) event.getRawX();
+						if (x2 <= x1) {
+							params.width = (int) ((300 * displayMetrics.density) + 0.5);
+						} else {
+							params.width = 0;
+						}
+					}
+					}
+					mChatContainer.setLayoutParams(params);
+					return true;
+				}
+			});
+		} else {
+			// The case that the chatBlock is on Left:
+			mChatContainer.setOnTouchListener(new OnTouchListener() {
+				private int x1;
+				private int x2;
+				RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) mChatContainer
+						.getLayoutParams();
+
+				@Override
+				public boolean onTouch(View v, MotionEvent event) {
+					switch (event.getAction()) {
+					case MotionEvent.ACTION_DOWN: {
+						x1 = (int) event.getRawX();
+					}
+					case MotionEvent.ACTION_MOVE: {
+						x2 = (int) event.getRawX();
+						params.width = (int) (x2);
+					}
+					case MotionEvent.ACTION_UP: {
+						x2 = (int) event.getRawX();
+						if (x2 < x1) {
+							params.width = 0;
+						} else {
+							params.width = (int) ((300 * displayMetrics.density) + 0.5);
+						}
+					}
+					}
+					mChatContainer.setLayoutParams(params);
+					return true;
+				}
+			});
+			mButton.setOnTouchListener(new OnTouchListener() {
+				private int x1;
+				private int x2;
+				RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) mChatContainer
+						.getLayoutParams();
+
+				@Override
+				public boolean onTouch(View v, MotionEvent event) {
+					switch (event.getAction()) {
+					case MotionEvent.ACTION_DOWN: {
+						x1 = (int) event.getRawX();
+					}
+					case MotionEvent.ACTION_MOVE: {
+						x2 = (int) event.getRawX();
+						params.width = (int) (x2);
+					}
+					case MotionEvent.ACTION_UP: {
+						x2 = (int) event.getRawX();
+
+						if (x2 < x1) {
+							params.width = 0;
+						} else {
+							params.width = (int) ((300 * displayMetrics.density) + 0.5);
+						}
+					}
+					}
+					mChatContainer.setLayoutParams(params);
+					return true;
+				}
+			});
+		}
 		return mChatCell;
 	}
 }

@@ -17,7 +17,7 @@ public class MainActivity extends ActionBarActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		mCurrentUser = 10001713; // This is a test userId from the testJson.
+		mCurrentUser = 10001714; // This is a test userId from the testJson.
 
 		// Configure the google map: No Zoom in/out, add current location
 		// button, set map to hybrid satellite map.
@@ -39,6 +39,7 @@ public class MainActivity extends ActionBarActivity {
 		// Here we use an adapter to set the values of the list.
 		ChatListAdapter mAdapter = new ChatListAdapter(this,
 				mChatList.getArray(), mCurrentUser);
+
 		mChatList.setAdapter(mAdapter);
 
 	}

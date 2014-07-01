@@ -6,6 +6,7 @@ import org.json.JSONObject;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.view.MotionEvent;
 import android.widget.ListView;
 
 public class CustomChatList extends ListView {
@@ -38,6 +39,13 @@ public class CustomChatList extends ListView {
 
 	public ArrayList<ChatBlock> getArray() {
 		return mChatList;
+	}
+	
+	@Override
+	public boolean dispatchTouchEvent(MotionEvent event) {
+		super.dispatchTouchEvent(event);
+		
+		return true;
 	}
 
 }
