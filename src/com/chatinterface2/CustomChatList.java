@@ -6,7 +6,6 @@ import org.json.JSONObject;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.view.MotionEvent;
 import android.widget.ListView;
 
 public class CustomChatList extends ListView {
@@ -37,15 +36,15 @@ public class CustomChatList extends ListView {
 		}
 	}
 
-	public ArrayList<ChatBlock> getArray() {
+	// Return the ArrayList of ChatBlocks for use in the Adapter
+	public ArrayList<ChatBlock> getArrayList() {
 		return mChatList;
 	}
-	
+/*
 	@Override
-	public boolean dispatchTouchEvent(MotionEvent event) {
-		super.dispatchTouchEvent(event);
-		
+	public boolean onInterceptTouchEvent(MotionEvent event) {
+		Log.d("OnIntercept", "INTERCEPTING");
 		return true;
-	}
+	}*/
 
 }

@@ -38,7 +38,7 @@ public class MainActivity extends ActionBarActivity {
 
 		// Here we use an adapter to set the values of the list.
 		ChatListAdapter mAdapter = new ChatListAdapter(this,
-				mChatList.getArray(), mCurrentUser);
+				mChatList.getArrayList(), mCurrentUser);
 
 		mChatList.setAdapter(mAdapter);
 

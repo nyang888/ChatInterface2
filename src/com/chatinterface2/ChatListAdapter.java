@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import android.content.Context;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -95,7 +96,8 @@ public class ChatListAdapter extends ArrayAdapter<ChatBlock> {
 					params.width = (int) ((300 * displayMetrics.density) + 0.5);
 					mChatContainer.setLayoutParams(params);
 				} else {
-					params.width = 0;
+					if (mChatContainer.getWidth() > 0)
+						params.width = 0;
 					mChatContainer.setLayoutParams(params);
 				}
 			}
@@ -115,22 +117,44 @@ public class ChatListAdapter extends ArrayAdapter<ChatBlock> {
 				public boolean onTouch(View v, MotionEvent event) {
 					switch (event.getAction()) {
 					case MotionEvent.ACTION_DOWN: {
+						Log.d("onTouch", "ACTION_DOWN");
 						x1 = (int) event.getRawX();
+						break;
 					}
 					case MotionEvent.ACTION_MOVE: {
+						Log.d("onTouch", "ACTION_MOVE");
 						x2 = (int) event.getRawX();
-						params.width = (int) (displayMetrics.widthPixels - x2);
+						params.width = displayMetrics.widthPixels - x2;
+						params.addRule(RelativeLayout.LEFT_OF,
+								R.id.toggle_button);
+						mChatContainer.setLayoutParams(params);
+						break;
 					}
 					case MotionEvent.ACTION_UP: {
+						Log.d("onTouch", "ACTION_UP");
 						x2 = (int) event.getRawX();
 						if (x2 <= x1) {
 							params.width = (int) ((300 * displayMetrics.density) + 0.5);
 						} else {
-							params.width = 0;
+							if (mChatContainer.getWidth() > 0)
+								params.width = 0;
 						}
+						mChatContainer.setLayoutParams(params);
+						break;
+					}
+					case MotionEvent.ACTION_CANCEL: {
+						Log.d("onTouch", "ACTION_CANCEL");
+						x2 = (int) event.getRawX();
+						if (x2 <= x1) {
+							params.width = (int) ((300 * displayMetrics.density) + 0.5);
+						} else {
+							if (mChatContainer.getWidth() > 0)
+								params.width = 0;
+						}
+						mChatContainer.setLayoutParams(params);
+						break;
 					}
 					}
-					mChatContainer.setLayoutParams(params);
 					return true;
 				}
 			});
@@ -144,22 +168,44 @@ public class ChatListAdapter extends ArrayAdapter<ChatBlock> {
 				public boolean onTouch(View v, MotionEvent event) {
 					switch (event.getAction()) {
 					case MotionEvent.ACTION_DOWN: {
+						Log.d("onTouch", "ACTION_DOWN");
 						x1 = (int) event.getRawX();
+						break;
 					}
 					case MotionEvent.ACTION_MOVE: {
+						Log.d("onTouch", "ACTION_MOVE");
 						x2 = (int) event.getRawX();
-						params.width = (int) (displayMetrics.widthPixels - x2);
+						params.width = displayMetrics.widthPixels - x2;
+						params.addRule(RelativeLayout.LEFT_OF,
+								R.id.toggle_button);
+						mChatContainer.setLayoutParams(params);
+						break;
 					}
 					case MotionEvent.ACTION_UP: {
+						Log.d("onTouch", "ACTION_UP");
 						x2 = (int) event.getRawX();
 						if (x2 <= x1) {
 							params.width = (int) ((300 * displayMetrics.density) + 0.5);
 						} else {
-							params.width = 0;
+							if (mChatContainer.getWidth() > 0)
+								params.width = 0;
 						}
+						mChatContainer.setLayoutParams(params);
+						break;
+					}
+					case MotionEvent.ACTION_CANCEL: {
+						Log.d("onTouch", "ACTION_CANCEL");
+						x2 = (int) event.getRawX();
+						if (x2 <= x1) {
+							params.width = (int) ((300 * displayMetrics.density) + 0.5);
+						} else {
+							if (mChatContainer.getWidth() > 0)
+								params.width = 0;
+						}
+						mChatContainer.setLayoutParams(params);
+						break;
 					}
 					}
-					mChatContainer.setLayoutParams(params);
 					return true;
 				}
 			});
@@ -173,24 +219,46 @@ public class ChatListAdapter extends ArrayAdapter<ChatBlock> {
 
 				@Override
 				public boolean onTouch(View v, MotionEvent event) {
+					Log.d("onTouch", "ACTION_DOWN");
 					switch (event.getAction()) {
 					case MotionEvent.ACTION_DOWN: {
 						x1 = (int) event.getRawX();
+						break;
 					}
 					case MotionEvent.ACTION_MOVE: {
+						Log.d("onTouch", "ACTION_MOVE");
 						x2 = (int) event.getRawX();
-						params.width = (int) (x2);
+						params.width = x2;
+						params.addRule(RelativeLayout.RIGHT_OF,
+								R.id.toggle_button);
+						mChatContainer.setLayoutParams(params);
+						break;
 					}
 					case MotionEvent.ACTION_UP: {
+						Log.d("onTouch", "ACTION_UP");
 						x2 = (int) event.getRawX();
 						if (x2 < x1) {
-							params.width = 0;
+							if (mChatContainer.getWidth() > 0)
+								params.width = 0;
 						} else {
 							params.width = (int) ((300 * displayMetrics.density) + 0.5);
 						}
+						mChatContainer.setLayoutParams(params);
+						break;
+					}
+					case MotionEvent.ACTION_CANCEL: {
+						Log.d("onTouch", "ACTION_CANCEL");
+						x2 = (int) event.getRawX();
+						if (x2 < x1) {
+							if (mChatContainer.getWidth() > 0)
+								params.width = 0;
+						} else {
+							params.width = (int) ((300 * displayMetrics.density) + 0.5);
+						}
+						mChatContainer.setLayoutParams(params);
+						break;
 					}
 					}
-					mChatContainer.setLayoutParams(params);
 					return true;
 				}
 			});
@@ -204,23 +272,44 @@ public class ChatListAdapter extends ArrayAdapter<ChatBlock> {
 				public boolean onTouch(View v, MotionEvent event) {
 					switch (event.getAction()) {
 					case MotionEvent.ACTION_DOWN: {
+						Log.d("onTouch", "ACTION_DOWN");
 						x1 = (int) event.getRawX();
+						break;
 					}
 					case MotionEvent.ACTION_MOVE: {
+						Log.d("onTouch", "ACTION_MOVE");
 						x2 = (int) event.getRawX();
-						params.width = (int) (x2);
+						params.addRule(RelativeLayout.RIGHT_OF,
+								R.id.toggle_button);
+						mChatContainer.setLayoutParams(params);
+						break;
 					}
 					case MotionEvent.ACTION_UP: {
+						Log.d("onTouch", "ACTION_UP");
 						x2 = (int) event.getRawX();
 
 						if (x2 < x1) {
-							params.width = 0;
+							if (mChatContainer.getWidth() > 0)
+								params.width = 0;
 						} else {
 							params.width = (int) ((300 * displayMetrics.density) + 0.5);
 						}
+						mChatContainer.setLayoutParams(params);
+						break;
+					}
+					case MotionEvent.ACTION_CANCEL: {
+						Log.d("onTouch", "ACTION_CANCEL");
+						x2 = (int) event.getRawX();
+						if (x2 < x1) {
+							if (mChatContainer.getWidth() > 0)
+								params.width = 0;
+						} else {
+							params.width = (int) ((300 * displayMetrics.density) + 0.5);
+						}
+						mChatContainer.setLayoutParams(params);
+						break;
 					}
 					}
-					mChatContainer.setLayoutParams(params);
 					return true;
 				}
 			});

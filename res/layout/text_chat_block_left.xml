@@ -3,7 +3,7 @@
     android:id="@+id/chat_layout_right"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#bb3D3D3D"
+    android:background="#dd3D3D3D"
     android:padding="2sp" >
 
     <ImageView
