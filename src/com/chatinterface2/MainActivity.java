@@ -4,6 +4,9 @@ import org.json.JSONArray;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.View.OnTouchListener;
 
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
@@ -41,6 +44,16 @@ public class MainActivity extends ActionBarActivity {
 				mChatList.getArrayList(), mCurrentUser);
 
 		mChatList.setAdapter(mAdapter);
+
+		mChatList.setOnTouchListener(new OnTouchListener() {
+
+			@Override
+			public boolean onTouch(View v, MotionEvent event) {
+				// TODO Auto-generated method stub
+				return false;
+			}
+
+		});
 
 	}
 
