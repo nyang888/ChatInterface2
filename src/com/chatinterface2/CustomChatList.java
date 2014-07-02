@@ -40,11 +40,4 @@ public class CustomChatList extends ListView {
 	public ArrayList<ChatBlock> getArrayList() {
 		return mChatList;
 	}
-/*
-	@Override
-	public boolean onInterceptTouchEvent(MotionEvent event) {
-		Log.d("OnIntercept", "INTERCEPTING");
-		return true;
-	}*/
-
 }

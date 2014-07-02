@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 public class ChatListAdapter extends ArrayAdapter<ChatBlock> {
@@ -71,10 +72,6 @@ public class ChatListAdapter extends ArrayAdapter<ChatBlock> {
 		mNameView.setText(mChatBlocks.get(position).getUsername());
 		mDateView.setText(mChatBlocks.get(position).getDate().toString());
 		mMessageView.setText(((TextBlock) mChatBlocks.get(position)).getText());
-
-		mNameView.setHorizontallyScrolling(true);
-		mDateView.setHorizontallyScrolling(true);
-
 		FrameLayout mChatContainer = (FrameLayout) mChatCell
 				.findViewById(R.id.chat_block_container);
 
@@ -97,17 +94,20 @@ public class ChatListAdapter extends ArrayAdapter<ChatBlock> {
 		return mChatCell;
 	}
 
-	// Here we implement the touch listeners as seperate classes since we use
+	// Here we implement the touch listeners as separate classes since we use
 	// them so much.
 	private class RightTouchHandler implements OnTouchListener {
 		private int x1;
 		private int x2;
 		private Button mButton;
 		private View mChatContainer;
+		private RelativeLayout.LayoutParams params;
 
 		public RightTouchHandler(View _chatContainer, Button _button) {
 			mChatContainer = _chatContainer;
 			mButton = _button;
+			params = (RelativeLayout.LayoutParams) mChatContainer
+					.getLayoutParams();
 		}
 
 		@Override
@@ -121,29 +121,38 @@ public class ChatListAdapter extends ArrayAdapter<ChatBlock> {
 			case MotionEvent.ACTION_MOVE: {
 				Log.d("onTouch", "ACTION_MOVE");
 				x2 = (int) event.getRawX();
-				mChatContainer.setX(x2);
+				params.leftMargin = x2;
+				params.rightMargin = 0 - (mChatContainer.getWidth() - (displayMetrics.widthPixels
+						- x2 - mButton.getWidth()));
+				mChatContainer.setLayoutParams(params);
 				break;
 			}
 			case MotionEvent.ACTION_UP: {
 				Log.d("onTouch", "ACTION_UP");
 				x2 = (int) event.getRawX();
 				if (x2 < x1) {
-					mChatContainer.setX((float) (displayMetrics.widthPixels
-							- mButton.getWidth() - mChatContainer.getWidth()));
+					params.leftMargin = (displayMetrics.widthPixels
+							- mChatContainer.getWidth() - mButton.getWidth());
+					params.rightMargin = 0;
 				} else {
-					mChatContainer.setX(displayMetrics.widthPixels);
+					params.leftMargin = displayMetrics.widthPixels;
+					params.rightMargin = (0 - mChatContainer.getWidth());
 				}
+				mChatContainer.setLayoutParams(params);
 				break;
 			}
 			case MotionEvent.ACTION_CANCEL: {
 				Log.d("onTouch", "ACTION_CANCEL");
 				x2 = (int) event.getRawX();
 				if (x2 < x1) {
-					mChatContainer.setX((float) (displayMetrics.widthPixels
-							- mButton.getWidth() - mChatContainer.getWidth()));
+					params.leftMargin = (displayMetrics.widthPixels
+							- mChatContainer.getWidth() - mButton.getWidth());
+					params.rightMargin = 0;
 				} else {
-					mChatContainer.setX(displayMetrics.widthPixels);
+					params.leftMargin = displayMetrics.widthPixels;
+					params.rightMargin = (0 - mChatContainer.getWidth());
 				}
+				mChatContainer.setLayoutParams(params);
 				break;
 			}
 			}
@@ -156,10 +165,13 @@ public class ChatListAdapter extends ArrayAdapter<ChatBlock> {
 		private int x2;
 		private Button mButton;
 		private View mChatContainer;
+		private RelativeLayout.LayoutParams params;
 
 		public LeftTouchHandler(View _chatContainer, Button _button) {
 			mChatContainer = _chatContainer;
 			mButton = _button;
+			params = (RelativeLayout.LayoutParams) mChatContainer
+					.getLayoutParams();
 		}
 
 		@Override
@@ -168,32 +180,44 @@ public class ChatListAdapter extends ArrayAdapter<ChatBlock> {
 			case MotionEvent.ACTION_DOWN: {
 				Log.d("onTouch", "ACTION_DOWN");
 				x1 = (int) event.getRawX();
+				mChatContainer.setLayoutParams(params);
 				break;
 			}
 			case MotionEvent.ACTION_MOVE: {
 				Log.d("onTouch", "ACTION_MOVE");
 				x2 = (int) event.getRawX();
-				mChatContainer.setX(x2 - mChatContainer.getWidth());
+				params.leftMargin = (x2 - mChatContainer.getWidth());
+				params.rightMargin = (displayMetrics.widthPixels - x2 - mButton
+						.getWidth());
+				mChatContainer.setLayoutParams(params);
 				break;
 			}
 			case MotionEvent.ACTION_UP: {
 				Log.d("onTouch", "ACTION_UP");
 				x2 = (int) event.getRawX();
 				if (x2 > x1) {
-					mChatContainer.setX(mButton.getWidth());
+					params.leftMargin = 0;
+					params.rightMargin = (displayMetrics.widthPixels - mChatContainer
+							.getWidth());
 				} else {
-					mChatContainer.setX(0 - mChatContainer.getWidth());
+					params.leftMargin = (0 - mChatContainer.getWidth());
+					params.rightMargin = (displayMetrics.widthPixels);
 				}
+				mChatContainer.setLayoutParams(params);
 				break;
 			}
 			case MotionEvent.ACTION_CANCEL: {
 				Log.d("onTouch", "ACTION_CANCEL");
 				x2 = (int) event.getRawX();
 				if (x2 > x1) {
-					mChatContainer.setX(mButton.getWidth());
+					params.leftMargin = 0;
+					params.rightMargin = (displayMetrics.widthPixels - mChatContainer
+							.getWidth());
 				} else {
-					mChatContainer.setX(0 - mChatContainer.getWidth());
+					params.leftMargin = (0 - mChatContainer.getWidth());
+					params.rightMargin = (displayMetrics.widthPixels);
 				}
+				mChatContainer.setLayoutParams(params);
 				break;
 			}
 			}
