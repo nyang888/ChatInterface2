@@ -1,21 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent"
+    android:gravity="right"
+    android:orientation="horizontal" >
 
-    <Button
-        android:id="@+id/toggle_button"
-        android:layout_width="10dp"
-        android:layout_height="match_parent"
-        android:layout_alignParentTop="true" 
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:background="#ffea4a5a" />
+    <RelativeLayout
+        android:id="@+id/layout_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
 
-    <FrameLayout
-        android:id="@+id/chat_block_container"
-        android:layout_width="300dp"
-        android:layout_height="match_parent"
-        android:layout_toLeftOf="@id/toggle_button" />
+        <Button
+            android:id="@+id/toggle_chat_button"
+            android:layout_width="10dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:background="#ffea4a5a" />
 
-</RelativeLayout>
+        <FrameLayout
+            android:id="@+id/chat_block_container"
+            android:layout_width="300dp"
+            android:layout_height="match_parent"
+            android:layout_toLeftOf="@id/toggle_chat_button" />
+
+        <FrameLayout
+            android:id="@+id/empty_blank"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_toLeftOf="@id/chat_block_container"
+            android:background="#00ffffff" />
+    </RelativeLayout>
+
+</LinearLayout>

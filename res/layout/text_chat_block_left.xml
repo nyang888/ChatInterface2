@@ -42,7 +42,10 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
+        android:layout_below="@id/time_stamp"
         android:layout_marginLeft="50dp"
+        android:layout_marginRight="10dp"
+        android:gravity="bottom"
         android:textColor="#ffffffff"
         android:textSize="15sp" />
 

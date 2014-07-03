@@ -28,10 +28,29 @@ public class CustomChatList extends ListView {
 
 		if (json != null) {
 			TextBlock tempTextBlock = new TextBlock();
-
 			tempTextBlock.parseJson(json);
 
-			mChatList.add(tempTextBlock);
+			if (mChatList.size() > 0) {
+				if ((mChatList.get(mChatList.size() - 1) instanceof TextBlock)) {
+					if (mChatList.get(mChatList.size() - 1).getUserId() == tempTextBlock
+							.getUserId()) {
+						StringBuilder sb = new StringBuilder();
+						sb.append(((TextBlock) mChatList.get(mChatList.size() - 1))
+								.getText());
+						sb.append("\n");
+						sb.append("\n");
+						sb.append(tempTextBlock.getText());
+						((TextBlock) mChatList.get(mChatList.size() - 1))
+								.setText(sb.toString());
+					} else {
+						mChatList.add(tempTextBlock);
+					}
+				} else {
+					mChatList.add(tempTextBlock);
+				}
+			} else {
+				mChatList.add(tempTextBlock);
+			}
 
 		}
 	}

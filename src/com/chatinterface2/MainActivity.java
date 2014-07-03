@@ -28,7 +28,6 @@ public class MainActivity extends ActionBarActivity {
 				.findFragmentById(R.id.map)).getMap();
 		mGoogleMap.getUiSettings().setZoomControlsEnabled(false);
 		mGoogleMap.setMyLocationEnabled(true);
-		mGoogleMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
 
 		// Retrieve the ListView.
 		CustomChatList mChatList = (CustomChatList) findViewById(R.id.chat);

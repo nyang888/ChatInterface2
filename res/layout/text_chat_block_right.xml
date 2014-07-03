@@ -30,8 +30,8 @@
         android:id="@+id/time_stamp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
         android:layout_alignWithParentIfMissing="true"
         android:layout_marginRight="50dp"
         android:textColor="#ffffffff"
@@ -43,8 +43,10 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
+        android:layout_below="@id/time_stamp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="50dp"
+        android:gravity="bottom"
         android:textColor="#ffffffff"
         android:textSize="15sp" />
 
