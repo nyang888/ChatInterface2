@@ -30,18 +30,23 @@ public class CustomChatList extends ListView {
 			TextBlock tempTextBlock = new TextBlock();
 			tempTextBlock.parseJson(json);
 
-			if (mChatList.size() > 0) {
-				if ((mChatList.get(mChatList.size() - 1) instanceof TextBlock)) {
-					if (mChatList.get(mChatList.size() - 1).getUserId() == tempTextBlock
+			if (mChatList.size() > 1) {
+				// We must use size-2 since we need to account for the empty
+				// spacing.
+				if ((mChatList.get(mChatList.size() - 2) instanceof TextBlock)) {
+					if (mChatList.get(mChatList.size() - 2).getUserId() == tempTextBlock
 							.getUserId()) {
 						StringBuilder sb = new StringBuilder();
-						sb.append(((TextBlock) mChatList.get(mChatList.size() - 1))
+						sb.append(((TextBlock) mChatList.get(mChatList.size() - 2))
 								.getText());
 						sb.append("\n");
 						sb.append("\n");
 						sb.append(tempTextBlock.getText());
-						((TextBlock) mChatList.get(mChatList.size() - 1))
+						((TextBlock) mChatList.get(mChatList.size() - 2))
 								.setText(sb.toString());
+						// Remove the empty spacing after getting rid of the
+						// cell.
+						mChatList.remove(mChatList.size() - 1);
 					} else {
 						mChatList.add(tempTextBlock);
 					}
@@ -51,7 +56,7 @@ public class CustomChatList extends ListView {
 			} else {
 				mChatList.add(tempTextBlock);
 			}
-
+			mChatList.add(new EmptyBlock());
 		}
 	}
 

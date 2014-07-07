@@ -40,61 +40,74 @@ public class ChatListAdapter extends ArrayAdapter<ChatBlock> {
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
 		// Here we need to inflate the layouts to be able to interact with them
-		// better. In order to differentiate between the current user and the
-		// others, we need to first check each chatBlock for the userId. And
-		// then we inflate the corresponding layout, either left or right.
-		View mChatView;
+		// better. We need to check what type of block the cell will be first.
+		// That includes checking to see if it will be an empty cell used for
+		// spacing.
 		View mChatCell;
-		Button mButton;
-		if (mChatBlocks.get(position).getUserId() != mCurrentUserId) {
-			mChatCell = mInflater.inflate(R.layout.chat_cell_left, parent,
-					false);
-			mButton = (Button) mChatCell.findViewById(R.id.toggle_chat_button);
-			mChatView = mInflater.inflate(R.layout.text_chat_block_left,
-					parent, false);
-
+		if (mChatBlocks.get(position) instanceof EmptyBlock) {
+			mChatCell = mInflater.inflate(R.layout.empty_cell, parent, false);
 		} else {
-			mChatCell = mInflater.inflate(R.layout.chat_cell_right, parent,
-					false);
-			mButton = (Button) mChatCell.findViewById(R.id.toggle_chat_button);
-			mChatView = mInflater.inflate(R.layout.text_chat_block_right,
-					parent, false);
+			// In order to differentiate between the current user and the
+			// others, we need to first check each chatBlock for the userId. And
+			// then we inflate the corresponding layout, either left or right.
+			View mChatView;
+			Button mButton;
+			if (mChatBlocks.get(position).getUserId() != mCurrentUserId) {
+				mChatCell = mInflater.inflate(R.layout.chat_cell_left, parent,
+						false);
+				mButton = (Button) mChatCell
+						.findViewById(R.id.toggle_chat_button);
+				mChatView = mInflater.inflate(R.layout.text_chat_block_left,
+						parent, false);
+
+			} else {
+				mChatCell = mInflater.inflate(R.layout.chat_cell_right, parent,
+						false);
+				mButton = (Button) mChatCell
+						.findViewById(R.id.toggle_chat_button);
+				mChatView = mInflater.inflate(R.layout.text_chat_block_right,
+						parent, false);
+			}
+
+			// Here we retrieve the remaining views from the layouts.
+			TextView mNameView = (TextView) mChatView
+					.findViewById(R.id.profile_name);
+			TextView mDateView = (TextView) mChatView
+					.findViewById(R.id.time_stamp);
+			TextView mMessageView = (TextView) mChatView
+					.findViewById(R.id.chat_message);
+
+			// Here we set the values for each of the views.
+			mNameView.setText(mChatBlocks.get(position).getUsername());
+			mDateView.setText(mChatBlocks.get(position).getDate().toString());
+			mMessageView.setText(((TextBlock) mChatBlocks.get(position))
+					.getText());
+			FrameLayout mChatContainer = (FrameLayout) mChatCell
+					.findViewById(R.id.chat_block_container);
+			FrameLayout mBlank = (FrameLayout) mChatCell
+					.findViewById(R.id.empty_blank);
+
+			mChatContainer.addView(mChatView);
+			// Here we re-adjust the size of the button to fit.
+			mButton.setHeight(mChatContainer.getHeight());
+
+			// Here we set up an OnTouchListener to deal with swipes and clicks.
+			if (mChatBlocks.get(position).getUserId() == mCurrentUserId) {
+				// In the case that the chatBlock in on the right:
+				mChatContainer.setOnTouchListener(new RightTouchHandler(
+						mChatContainer, mButton, mBlank));
+				mButton.setOnTouchListener(new RightTouchHandler(
+						mChatContainer, mButton, mBlank));
+			} else {
+				// The case that the chatBlock is on Left:
+				mChatContainer.setOnTouchListener(new LeftTouchHandler(
+						mChatContainer, mButton, mBlank));
+				mButton.setOnTouchListener(new LeftTouchHandler(mChatContainer,
+						mButton, mBlank));
+			}
+
 		}
 
-		// Here we retrieve the remaining views from the layouts.
-		TextView mNameView = (TextView) mChatView
-				.findViewById(R.id.profile_name);
-		TextView mDateView = (TextView) mChatView.findViewById(R.id.time_stamp);
-		TextView mMessageView = (TextView) mChatView
-				.findViewById(R.id.chat_message);
-
-		// Here we set the values for each of the views.
-		mNameView.setText(mChatBlocks.get(position).getUsername());
-		mDateView.setText(mChatBlocks.get(position).getDate().toString());
-		mMessageView.setText(((TextBlock) mChatBlocks.get(position)).getText());
-		FrameLayout mChatContainer = (FrameLayout) mChatCell
-				.findViewById(R.id.chat_block_container);
-		FrameLayout mBlank = (FrameLayout) mChatCell
-				.findViewById(R.id.empty_blank);
-
-		mChatContainer.addView(mChatView);
-		// Here we re-adjust the size of the button to fit.
-		mButton.setHeight(mChatContainer.getHeight());
-
-		// Here we set up an OnTouchListener to deal with swipes and clicks.
-		if (mChatBlocks.get(position).getUserId() == mCurrentUserId) {
-			// In the case that the chatBlock in on the right:
-			mChatContainer.setOnTouchListener(new RightTouchHandler(
-					mChatContainer, mButton, mBlank));
-			mButton.setOnTouchListener(new RightTouchHandler(mChatContainer,
-					mButton, mBlank));
-		} else {
-			// The case that the chatBlock is on Left:
-			mChatContainer.setOnTouchListener(new LeftTouchHandler(
-					mChatContainer, mButton, mBlank));
-			mButton.setOnTouchListener(new LeftTouchHandler(mChatContainer,
-					mButton, mBlank));
-		}
 		return mChatCell;
 	}
 
