@@ -1,8 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/empty_cell"
     android:layout_width="match_parent"
     android:layout_height="50dp"
-    android:background="#00ffffff" >
+    android:background="#00ffffff"
+    android:clickable="false" >
 
-</RelativeLayout>
+    <com.chatinterface2.CustomBlankCell
+        android:id="@+id/empty_blank"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#00ffffff"
+        android:clickable="false"
+        android:focusable="false" />
+
+</LinearLayout>

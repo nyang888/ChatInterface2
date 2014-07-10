@@ -4,9 +4,7 @@ import org.json.JSONArray;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
-import android.view.MotionEvent;
-import android.view.View;
-import android.view.View.OnTouchListener;
+import android.widget.RelativeLayout;
 
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
@@ -14,13 +12,16 @@ import com.google.android.gms.maps.SupportMapFragment;
 public class MainActivity extends ActionBarActivity {
 	private GoogleMap mGoogleMap;
 	private JSONArray mJsonArray = new JSONArray();
-	private int mCurrentUser;
+	public static int CURRENT_USER_ID;
+	public static RelativeLayout MAP_WRAPPER;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		mCurrentUser = 10001714; // This is a test userId from the testJson.
+		CURRENT_USER_ID = 10001714; // This is a test userId from the testJson.
+		// Use static variable to allow access from the different views.
+		MAP_WRAPPER = (RelativeLayout) findViewById(R.id.map_wrapper);
 
 		// Configure the google map: No Zoom in/out, add current location
 		// button, set map to hybrid satellite map.
@@ -40,19 +41,9 @@ public class MainActivity extends ActionBarActivity {
 
 		// Here we use an adapter to set the values of the list.
 		ChatListAdapter mAdapter = new ChatListAdapter(this,
-				mChatList.getArrayList(), mCurrentUser);
+				mChatList.getArrayList());
 
 		mChatList.setAdapter(mAdapter);
-
-		mChatList.setOnTouchListener(new OnTouchListener() {
-
-			@Override
-			public boolean onTouch(View v, MotionEvent event) {
-				// TODO Auto-generated method stub
-				return false;
-			}
-
-		});
 
 	}
 

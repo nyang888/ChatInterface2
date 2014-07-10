@@ -29,7 +29,7 @@ public class ChatBlock {
 		mChatId = _chatId;
 	}
 
-	public void setEDate(int _eDate) {
+	public void setEDate(long _eDate) {
 		mEDate = _eDate;
 	}
 

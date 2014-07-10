@@ -10,22 +10,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" >
 
-        <Button
-            android:id="@+id/toggle_chat_button"
-            android:layout_width="10dp"
-            android:layout_height="match_parent"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentTop="true"
-            android:background="#ffea4a5a" />
-
         <FrameLayout
             android:id="@+id/chat_block_container"
             android:layout_width="300dp"
             android:layout_height="match_parent"
-            android:layout_toLeftOf="@id/toggle_chat_button" />
+            android:layout_alignParentRight="true" />
 
-        <FrameLayout
+        <com.chatinterface2.CustomBlankCell
             android:id="@+id/empty_blank"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

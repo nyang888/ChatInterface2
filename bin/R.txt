@@ -343,7 +343,7 @@ int id book_now 0x7f050028
 int id buyButton 0x7f050022
 int id buy_now 0x7f050027
 int id buy_with_google 0x7f050026
-int id chat 0x7f050053
+int id chat 0x7f050054
 int id chat_block_container 0x7f050056
 int id chat_layout_right 0x7f050059
 int id chat_message 0x7f05005d
@@ -370,11 +370,12 @@ int id hybrid 0x7f05001c
 int id icon 0x7f05003c
 int id ifRoom 0x7f05000a
 int id image 0x7f050039
-int id input_message 0x7f050052
-int id layout_container 0x7f050054
+int id input_message 0x7f050053
+int id layout_container 0x7f050055
 int id listMode 0x7f050001
 int id list_item 0x7f05003b
-int id map 0x7f05004f
+int id map 0x7f050050
+int id map_wrapper 0x7f05004f
 int id match_parent 0x7f050024
 int id middle 0x7f050012
 int id monochrome 0x7f05002b
@@ -400,8 +401,8 @@ int id search_plate 0x7f050048
 int id search_src_text 0x7f050049
 int id search_voice_btn 0x7f05004d
 int id selectionDetails 0x7f050023
-int id send_button 0x7f050051
-int id send_message_block 0x7f050050
+int id send_button 0x7f050052
+int id send_message_block 0x7f050051
 int id shortcut 0x7f050040
 int id showCustom 0x7f050007
 int id showHome 0x7f050004
@@ -413,7 +414,6 @@ int id tabMode 0x7f050002
 int id terrain 0x7f05001b
 int id time_stamp 0x7f05005c
 int id title 0x7f05003d
-int id toggle_chat_button 0x7f050055
 int id top_action_bar 0x7f050032
 int id up 0x7f050033
 int id useLogo 0x7f050003
@@ -505,8 +505,8 @@ int string message_hint 0x7f0a0032
 int string prof_pic_desc 0x7f0a0030
 int string send 0x7f0a0031
 int string wallet_buy_button_place_holder 0x7f0a002c
-int style AppBaseTheme 0x7f0b008f
-int style AppTheme 0x7f0b0090
+int style AppBaseTheme 0x7f0b0090
+int style AppTheme 0x7f0b0091
 int style TextAppearance_AppCompat_Base_CompactMenu_Dialog 0x7f0b0063
 int style TextAppearance_AppCompat_Base_SearchResult 0x7f0b006d
 int style TextAppearance_AppCompat_Base_SearchResult_Subtitle 0x7f0b006f
@@ -568,10 +568,11 @@ int style Theme_Base_AppCompat_Light_DarkActionBar 0x7f0b0082
 int style Theme_Base_AppCompat_Light_DialogWhenLarge 0x7f0b0086
 int style Theme_Base_AppCompat_Light_DialogWhenLarge_Base 0x7f0b008a
 int style Theme_Base_Light 0x7f0b007f
-int style WalletFragmentDefaultButtonTextAppearance 0x7f0b008d
-int style WalletFragmentDefaultDetailsHeaderTextAppearance 0x7f0b008c
-int style WalletFragmentDefaultDetailsTextAppearance 0x7f0b008b
-int style WalletFragmentDefaultStyle 0x7f0b008e
+int style Theme_IAPTheme 0x7f0b008b
+int style WalletFragmentDefaultButtonTextAppearance 0x7f0b008e
+int style WalletFragmentDefaultDetailsHeaderTextAppearance 0x7f0b008d
+int style WalletFragmentDefaultDetailsTextAppearance 0x7f0b008c
+int style WalletFragmentDefaultStyle 0x7f0b008f
 int style Widget_AppCompat_ActionBar 0x7f0b0000
 int style Widget_AppCompat_ActionBar_Solid 0x7f0b0002
 int style Widget_AppCompat_ActionBar_TabBar 0x7f0b0011
@@ -742,7 +743,7 @@ int styleable MenuItem_android_title 7
 int styleable MenuItem_android_titleCondensed 8
 int styleable MenuItem_android_visible 4
 int styleable MenuItem_showAsAction 13
-int[] styleable MenuView { 0x010100ae, 0x0101012c, 0x0101012d, 0x0101012e, 0x0101012f, 0x01010130, 0x01010131, 0x01010435 }
+int[] styleable MenuView { 0x010100ae, 0x0101012c, 0x0101012d, 0x0101012e, 0x0101012f, 0x01010130, 0x01010131, 0x01010438 }
 int styleable MenuView_android_headerBackground 4
 int styleable MenuView_android_horizontalDivider 2
 int styleable MenuView_android_itemBackground 5

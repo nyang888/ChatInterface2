@@ -1479,7 +1479,7 @@ containing a value of this type.
         public static final int buyButton=0x7f050022;
         public static final int buy_now=0x7f050027;
         public static final int buy_with_google=0x7f050026;
-        public static final int chat=0x7f050053;
+        public static final int chat=0x7f050054;
         public static final int chat_block_container=0x7f050056;
         public static final int chat_layout_right=0x7f050059;
         public static final int chat_message=0x7f05005d;
@@ -1506,11 +1506,12 @@ containing a value of this type.
         public static final int icon=0x7f05003c;
         public static final int ifRoom=0x7f05000a;
         public static final int image=0x7f050039;
-        public static final int input_message=0x7f050052;
-        public static final int layout_container=0x7f050054;
+        public static final int input_message=0x7f050053;
+        public static final int layout_container=0x7f050055;
         public static final int listMode=0x7f050001;
         public static final int list_item=0x7f05003b;
-        public static final int map=0x7f05004f;
+        public static final int map=0x7f050050;
+        public static final int map_wrapper=0x7f05004f;
         public static final int match_parent=0x7f050024;
         public static final int middle=0x7f050012;
         public static final int monochrome=0x7f05002b;
@@ -1536,8 +1537,8 @@ containing a value of this type.
         public static final int search_src_text=0x7f050049;
         public static final int search_voice_btn=0x7f05004d;
         public static final int selectionDetails=0x7f050023;
-        public static final int send_button=0x7f050051;
-        public static final int send_message_block=0x7f050050;
+        public static final int send_button=0x7f050052;
+        public static final int send_message_block=0x7f050051;
         public static final int shortcut=0x7f050040;
         public static final int showCustom=0x7f050007;
         public static final int showHome=0x7f050004;
@@ -1549,7 +1550,6 @@ containing a value of this type.
         public static final int terrain=0x7f05001b;
         public static final int time_stamp=0x7f05005c;
         public static final int title=0x7f05003d;
-        public static final int toggle_chat_button=0x7f050055;
         public static final int top_action_bar=0x7f050032;
         public static final int up=0x7f050033;
         public static final int useLogo=0x7f050003;
@@ -1788,11 +1788,11 @@ containing a value of this type.
     
  API 14 theme customizations can go here. 
          */
-        public static final int AppBaseTheme=0x7f0b008f;
+        public static final int AppBaseTheme=0x7f0b0090;
         /**  Application theme. 
  All customizations that are NOT specific to a particular API-level can go here. 
          */
-        public static final int AppTheme=0x7f0b0090;
+        public static final int AppTheme=0x7f0b0091;
         /**  Mimic text appearance in select_dialog_item.xml 
          */
         public static final int TextAppearance_AppCompat_Base_CompactMenu_Dialog=0x7f0b0063;
@@ -1901,15 +1901,16 @@ containing a value of this type.
         /**  Base platform-dependent theme providing a light-themed activity. 
          */
         public static final int Theme_Base_Light=0x7f0b007f;
-        public static final int WalletFragmentDefaultButtonTextAppearance=0x7f0b008d;
-        public static final int WalletFragmentDefaultDetailsHeaderTextAppearance=0x7f0b008c;
-        public static final int WalletFragmentDefaultDetailsTextAppearance=0x7f0b008b;
+        public static final int Theme_IAPTheme=0x7f0b008b;
+        public static final int WalletFragmentDefaultButtonTextAppearance=0x7f0b008e;
+        public static final int WalletFragmentDefaultDetailsHeaderTextAppearance=0x7f0b008d;
+        public static final int WalletFragmentDefaultDetailsTextAppearance=0x7f0b008c;
         /** 
          Default style of the wallet fragment that will be used if not set explicitly
          when fragment is created
     
          */
-        public static final int WalletFragmentDefaultStyle=0x7f0b008e;
+        public static final int WalletFragmentDefaultStyle=0x7f0b008f;
         /**  Styles in here can be extended for customisation in your application. Each utilises
          one of the Base styles. If Holo themes are available on the current platform version
          they will be used instead of the compat styles. 
@@ -3471,7 +3472,7 @@ containing a value of this type.
          */
         public static final int[] MenuView = {
             0x010100ae, 0x0101012c, 0x0101012d, 0x0101012e,
-            0x0101012f, 0x01010130, 0x01010131, 0x01010435
+            0x0101012f, 0x01010130, 0x01010131, 0x01010438
         };
         /**
           <p>

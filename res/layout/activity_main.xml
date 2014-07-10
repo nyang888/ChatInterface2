@@ -6,11 +6,17 @@
     tools:context="com.chatinterface2.MainActivity"
     tools:ignore="MergeRootFrame" >
 
-    <fragment
-        android:id="@+id/map"
-        android:name="com.google.android.gms.maps.SupportMapFragment"
+    <RelativeLayout
+        android:id="@+id/map_wrapper"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent" >
+
+        <fragment
+            android:id="@+id/map"
+            android:name="com.google.android.gms.maps.SupportMapFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </RelativeLayout>
 
     <RelativeLayout
         android:id="@+id/send_message_block"
@@ -46,11 +52,12 @@
         android:layout_height="wrap_content"
         android:layout_above="@id/send_message_block"
         android:animateLayoutChanges="true"
-        android:clickable="false"
+        android:choiceMode="singleChoice"
+        android:clickable="true"
         android:divider="#00ffffff"
-        android:focusable="false"
-        android:focusableInTouchMode="false"
-        android:isScrollContainer="true"
+        android:dividerHeight="0dp"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
         android:scrollbars="none"
         android:stackFromBottom="true"
         android:transcriptMode="normal" />
