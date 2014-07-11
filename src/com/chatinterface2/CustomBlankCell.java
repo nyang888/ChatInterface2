@@ -4,9 +4,9 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
-import android.widget.FrameLayout;
+import android.widget.Button;
 
-public class CustomBlankCell extends FrameLayout {
+public class CustomBlankCell extends Button {
 
 	public CustomBlankCell(Context context) {
 		super(context);

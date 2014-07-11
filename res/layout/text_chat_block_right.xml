@@ -4,17 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#dd3D3D3D"
+    android:minHeight="60dp"
     android:padding="2sp" >
-
-    <ImageView
-        android:id="@+id/profile_picture"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginRight="3dip"
-        android:contentDescription="@string/prof_pic_desc"
-        android:src="@drawable/ic_launcher" />
 
     <TextView
         android:id="@+id/profile_name"
@@ -23,8 +14,10 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_marginLeft="10dp"
+        android:paddingTop="10sp"
         android:textColor="#ffffffff"
-        android:textSize="12sp" />
+        android:textSize="12sp"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/time_stamp"
@@ -33,7 +26,8 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
         android:layout_alignWithParentIfMissing="true"
-        android:layout_marginRight="50dp"
+        android:layout_marginRight="60dp"
+        android:paddingTop="10sp"
         android:textColor="#ffffffff"
         android:textSize="12sp" />
 
@@ -45,8 +39,9 @@
         android:layout_alignParentLeft="true"
         android:layout_below="@id/time_stamp"
         android:layout_marginLeft="10dp"
-        android:layout_marginRight="50dp"
+        android:layout_marginRight="60dp"
         android:gravity="bottom"
+        android:paddingBottom="10sp"
         android:textColor="#ffffffff"
         android:textSize="15sp" />
 

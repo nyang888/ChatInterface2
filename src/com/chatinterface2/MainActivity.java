@@ -23,12 +23,10 @@ public class MainActivity extends ActionBarActivity {
 		// Use static variable to allow access from the different views.
 		MAP_WRAPPER = (RelativeLayout) findViewById(R.id.map_wrapper);
 
-		// Configure the google map: No Zoom in/out, add current location
-		// button, set map to hybrid satellite map.
+		// Configure the google map: No Zoom in/out Button
 		mGoogleMap = ((SupportMapFragment) getSupportFragmentManager()
 				.findFragmentById(R.id.map)).getMap();
 		mGoogleMap.getUiSettings().setZoomControlsEnabled(false);
-		mGoogleMap.setMyLocationEnabled(true);
 
 		// Retrieve the ListView.
 		CustomChatList mChatList = (CustomChatList) findViewById(R.id.chat);

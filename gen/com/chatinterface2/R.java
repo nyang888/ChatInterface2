@@ -1481,7 +1481,7 @@ containing a value of this type.
         public static final int buy_with_google=0x7f050026;
         public static final int chat=0x7f050054;
         public static final int chat_block_container=0x7f050056;
-        public static final int chat_layout_right=0x7f050059;
+        public static final int chat_layout_right=0x7f05005a;
         public static final int chat_message=0x7f05005d;
         public static final int checkbox=0x7f05003f;
         public static final int classic=0x7f050029;
@@ -1493,7 +1493,7 @@ containing a value of this type.
         public static final int dropdown=0x7f05000f;
         public static final int edit_query=0x7f050042;
         public static final int empty_blank=0x7f050057;
-        public static final int empty_cell=0x7f050058;
+        public static final int empty_cell=0x7f050059;
         public static final int end=0x7f050013;
         public static final int expand_activities_button=0x7f050038;
         public static final int expanded_menu=0x7f05003e;
@@ -1520,7 +1520,7 @@ containing a value of this type.
         public static final int normal=0x7f050000;
         public static final int production=0x7f05001f;
         public static final int profile_name=0x7f05005b;
-        public static final int profile_picture=0x7f05005a;
+        public static final int profile_picture_toggle=0x7f050058;
         public static final int progress_circular=0x7f050018;
         public static final int progress_horizontal=0x7f050019;
         public static final int radio=0x7f050041;

@@ -1,7 +1,9 @@
 package com.chatinterface2;
 
 import java.io.InputStream;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -51,6 +53,16 @@ public class ChatBlock {
 
 	public Date getDate() {
 		return mDate;
+	}
+
+	public String getDateString() {
+		Calendar cal = new GregorianCalendar();
+		cal.setTime(mDate);
+		StringBuilder sb = new StringBuilder();
+		sb.append(cal.HOUR_OF_DAY);
+		sb.append(":");
+		sb.append(cal.MINUTE);
+		return sb.toString();
 	}
 
 	public int getUserId() {
