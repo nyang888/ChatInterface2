@@ -59,9 +59,22 @@ public class ChatBlock {
 		Calendar cal = new GregorianCalendar();
 		cal.setTime(mDate);
 		StringBuilder sb = new StringBuilder();
-		sb.append(cal.HOUR_OF_DAY);
-		sb.append(":");
-		sb.append(cal.MINUTE);
+		if (cal.HOUR_OF_DAY < 12) {
+			sb.append(cal.HOUR_OF_DAY);
+			sb.append(":");
+			sb.append(cal.MINUTE);
+			sb.append(" am");
+		} else if (cal.HOUR_OF_DAY == 12) {
+			sb.append(cal.HOUR_OF_DAY);
+			sb.append(":");
+			sb.append(cal.MINUTE);
+			sb.append(" pm");
+		} else {
+			sb.append(cal.HOUR_OF_DAY - 12);
+			sb.append(":");
+			sb.append(cal.MINUTE);
+			sb.append(" pm");
+		}
 		return sb.toString();
 	}
 

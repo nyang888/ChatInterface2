@@ -25,25 +25,41 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
-        android:background="#ffffffff" >
+        android:background="#ffeaeaea"
+        android:minHeight="40dp" >
 
         <Button
             android:id="@+id/send_button"
             android:layout_width="wrap_content"
-            android:layout_height="23dp"
+            android:layout_height="35dp"
             android:layout_alignParentRight="true"
-            android:background="#ff7d7d7d"
-            android:text="@string/send" />
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/send_button"
+            android:text="@string/send"
+            android:textColor="#ffffffff"
+            android:textStyle="bold" />
 
         <EditText
             android:id="@+id/input_message"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="5dp"
             android:layout_toLeftOf="@id/send_button"
-            android:background="#ffffffff"
+            android:background="@drawable/send_text_box"
             android:hint="@string/message_hint"
-            android:textSize="20sp" />
+            android:minHeight="30dp"
+            android:paddingBottom="8dp"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:paddingTop="8dp"
+            android:textSize="15sp" />
     </RelativeLayout>
 
     <com.chatinterface2.CustomChatList
@@ -52,7 +68,7 @@
         android:layout_height="wrap_content"
         android:layout_above="@id/send_message_block"
         android:animateLayoutChanges="true"
-        android:choiceMode="singleChoice"
+        android:choiceMode="multipleChoice"
         android:clickable="true"
         android:divider="#00ffffff"
         android:dividerHeight="0dp"

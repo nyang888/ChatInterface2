@@ -3,7 +3,7 @@
     android:id="@+id/chat_layout_right"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#dd3D3D3D"
+    android:background="@drawable/left_chat_round"
     android:minHeight="60dp"
     android:padding="2sp" >
 
@@ -14,7 +14,7 @@
         android:layout_alignParentTop="true"
         android:layout_marginLeft="60dp"
         android:paddingTop="10sp"
-        android:textColor="#ffffffff"
+        android:textColor="#ff000000"
         android:textSize="12sp"
         android:textStyle="bold" />
 
@@ -25,9 +25,9 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
         android:layout_alignWithParentIfMissing="true"
-        android:layout_marginRight="10dp"
+        android:layout_marginRight="25dp"
         android:paddingTop="10sp"
-        android:textColor="#ffffffff"
+        android:textColor="#ff000000"
         android:textSize="12sp" />
 
     <TextView
@@ -38,10 +38,19 @@
         android:layout_alignParentRight="true"
         android:layout_below="@id/time_stamp"
         android:layout_marginLeft="60dp"
-        android:layout_marginRight="10dp"
+        android:layout_marginRight="25dp"
         android:gravity="bottom"
         android:paddingBottom="10sp"
-        android:textColor="#ffffffff"
+        android:textColor="#ff000000"
         android:textSize="15sp" />
+
+    <ImageView
+        android:id="@+id/arrow_left"
+        android:layout_width="10dp"
+        android:layout_height="20dp"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="7dp"
+        android:src="@drawable/arrow_left" />
 
 </RelativeLayout>

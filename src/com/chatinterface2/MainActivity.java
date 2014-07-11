@@ -27,6 +27,7 @@ public class MainActivity extends ActionBarActivity {
 		mGoogleMap = ((SupportMapFragment) getSupportFragmentManager()
 				.findFragmentById(R.id.map)).getMap();
 		mGoogleMap.getUiSettings().setZoomControlsEnabled(false);
+		mGoogleMap.setMyLocationEnabled(true);
 
 		// Retrieve the ListView.
 		CustomChatList mChatList = (CustomChatList) findViewById(R.id.chat);

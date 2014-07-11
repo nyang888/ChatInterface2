@@ -3,7 +3,7 @@
     android:id="@+id/chat_layout_right"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#dd3D3D3D"
+    android:background="@drawable/right_chat_round"
     android:minHeight="60dp"
     android:padding="2sp" >
 
@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_marginLeft="10dp"
+        android:layout_marginLeft="25dp"
         android:paddingTop="10sp"
         android:textColor="#ffffffff"
         android:textSize="12sp"
@@ -38,11 +38,20 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_below="@id/time_stamp"
-        android:layout_marginLeft="10dp"
+        android:layout_marginLeft="25dp"
         android:layout_marginRight="60dp"
         android:gravity="bottom"
         android:paddingBottom="10sp"
         android:textColor="#ffffffff"
         android:textSize="15sp" />
+
+    <ImageView
+        android:id="@+id/arrow_right"
+        android:layout_width="10dp"
+        android:layout_height="20dp"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="7dp"
+        android:src="@drawable/arrow_right" />
 
 </RelativeLayout>
