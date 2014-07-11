@@ -80,8 +80,7 @@ public class ChatListAdapter extends ArrayAdapter<ChatBlock> {
 			mDateView.setText(mChatBlocks.get(position).getDateString());
 			mMessageView.setText(((TextBlock) mChatBlocks.get(position))
 					.getText());
-			Button mBlank = (Button) mChatCell
-					.findViewById(R.id.empty_blank);
+			Button mBlank = (Button) mChatCell.findViewById(R.id.empty_blank);
 			FrameLayout mChatContainer = (FrameLayout) mChatCell
 					.findViewById(R.id.chat_block_container);
 
@@ -139,15 +138,16 @@ public class ChatListAdapter extends ArrayAdapter<ChatBlock> {
 				if ((x2 - x1) >= MIN_SWIPE_DISTANCE) {
 					// If swiping from left to right: Close Chat
 					mChatContainer.setX(displayMetrics.widthPixels);
-					params.width = displayMetrics.widthPixels;
 					params.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
+					params.addRule(RelativeLayout.LEFT_OF,
+							R.id.profile_picture_toggle);
 				} else if ((x1 - x2) >= MIN_SWIPE_DISTANCE) {
 					// If swiping from right to left: Open Chat
 					mChatContainer.setX(displayMetrics.widthPixels
 							- mChatContainer.getWidth());
-					params.width = displayMetrics.widthPixels
-							- mChatContainer.getWidth();
 					params.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
+					params.addRule(RelativeLayout.LEFT_OF,
+							R.id.chat_block_container);
 				}
 				mBlank.setLayoutParams(params);
 				break;
