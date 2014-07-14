@@ -7,5 +7,7 @@
     <string name="prof_pic_desc">Profile Picture</string>
     <string name="send">Send</string>
     <string name="message_hint">Type Message Here</string>
+    <string name="close">Close</string>
+    <string name="call_911">911</string>
 
 </resources>

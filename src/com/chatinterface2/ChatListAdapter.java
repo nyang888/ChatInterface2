@@ -74,6 +74,14 @@ public class ChatListAdapter extends ArrayAdapter<ChatBlock> {
 					.findViewById(R.id.chat_message);
 			ImageView mImageView = (ImageView) mChatCell
 					.findViewById(R.id.profile_picture_toggle);
+			
+			if (mChatBlocks.get(position).getUserId() == 0) {
+				mImageView.setImageResource(R.drawable.system_standin);
+			} else if (mChatBlocks.get(position).getUserId() != mCurrentUserId) {
+				mImageView.setImageResource(R.drawable.boy_standin);
+			} else {
+				mImageView.setImageResource(R.drawable.girl_standin);
+			}
 
 			// Here we set the values for each of the views.
 			mNameView.setText(mChatBlocks.get(position).getUsername());
@@ -308,4 +316,6 @@ public class ChatListAdapter extends ArrayAdapter<ChatBlock> {
 		}
 
 	}
+	
+	
 }

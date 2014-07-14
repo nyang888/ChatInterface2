@@ -26,6 +26,7 @@ public class CustomBlankCell extends Button {
 	public boolean dispatchTouchEvent(MotionEvent ev) {
 		if (ev.getAction() != 3) {
 			CustomChatList.LIST_INTERCEPT_TOUCH = false;
+			
 			MainActivity.MAP_WRAPPER.dispatchTouchEvent(ev);
 			Log.d("dispatchTouchEvent", "Dispatched " + ev.getAction());
 		}
