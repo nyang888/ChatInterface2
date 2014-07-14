@@ -2,7 +2,11 @@ package com.chatinterface2;
 
 import org.json.JSONArray;
 
+import android.content.Context;
 import android.content.Intent;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -15,10 +19,14 @@ import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.ToggleButton;
 
+import com.google.android.gms.maps.CameraUpdate;
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
 
-public class MainActivity extends FragmentActivity {
+public class MainActivity extends FragmentActivity implements LocationListener {
+
 	private GoogleMap mGoogleMap;
 	private JSONArray mJsonArray = new JSONArray();
 	public static int CURRENT_USER_ID;
@@ -26,6 +34,11 @@ public class MainActivity extends FragmentActivity {
 	public static CustomChatList mChatList;
 	private ToggleButton mToggleChat;
 	private Button mEmergencyButton;
+	private LocationManager mLocationManager;
+	private static final long MIN_TIME = 400;
+	private static final float MIN_DISTANCE = 1000;
+	private LatLng mCurrentLatLng;
+	private Button mLocationButton;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +53,12 @@ public class MainActivity extends FragmentActivity {
 				.findFragmentById(R.id.map)).getMap();
 		mGoogleMap.getUiSettings().setZoomControlsEnabled(false);
 		mGoogleMap.setMyLocationEnabled(true);
+		mGoogleMap.getUiSettings().setMyLocationButtonEnabled(false);
+
+		mLocationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+		mLocationManager.requestLocationUpdates(
+				LocationManager.NETWORK_PROVIDER, MIN_TIME, MIN_DISTANCE,
+				(LocationListener) this);
 
 		// Retrieve the ListView.
 		mChatList = (CustomChatList) findViewById(R.id.chat);
@@ -92,6 +111,18 @@ public class MainActivity extends FragmentActivity {
 				startActivity(intent);
 			}
 		});
+
+		// Set up myLocation button
+		mLocationButton = (Button) findViewById(R.id.location_center_button);
+		mLocationButton.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View arg0) {
+				CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(
+						mCurrentLatLng, 17);
+				mGoogleMap.animateCamera(cameraUpdate);
+			}
+		});
+
 	}
 
 	public static void enableDisableViewGroup(boolean enabled) {
@@ -103,6 +134,35 @@ public class MainActivity extends FragmentActivity {
 				enableDisableViewGroup(enabled);
 			}
 		}
+	}
+
+	@Override
+	public void onLocationChanged(Location location) {
+		LatLng latLng = new LatLng(location.getLatitude(),
+				location.getLongitude());
+		mCurrentLatLng = latLng;
+		CameraUpdate cameraUpdate = CameraUpdateFactory
+				.newLatLngZoom(latLng, 17);
+		mGoogleMap.animateCamera(cameraUpdate);
+		mLocationManager.removeUpdates(this);
+	}
+
+	@Override
+	public void onProviderDisabled(String arg0) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void onProviderEnabled(String arg0) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void onStatusChanged(String arg0, int arg1, Bundle arg2) {
+		// TODO Auto-generated method stub
+
 	}
 
 }

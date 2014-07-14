@@ -54,6 +54,17 @@
             android:checked="true"
             android:textOff=""
             android:textOn="" />
+
+        <Button
+            android:id="@+id/location_center_button"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_toLeftOf="@id/toggle_chat"
+            android:background="@drawable/my_location" />
     </RelativeLayout>
 
     <RelativeLayout
