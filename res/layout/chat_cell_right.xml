@@ -11,7 +11,7 @@
         android:layout_height="match_parent"
         android:layout_alignParentRight="true" >
 
-        <FrameLayout
+        <com.chatinterface2.CustomChatContainer
             android:id="@+id/chat_block_container"
             android:layout_width="300dp"
             android:layout_height="match_parent"

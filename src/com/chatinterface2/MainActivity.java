@@ -2,11 +2,18 @@ package com.chatinterface2;
 
 import org.json.JSONArray;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.RelativeLayout;
+import android.widget.ToggleButton;
 
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
@@ -17,6 +24,8 @@ public class MainActivity extends FragmentActivity {
 	public static int CURRENT_USER_ID;
 	public static RelativeLayout MAP_WRAPPER;
 	public static CustomChatList mChatList;
+	private ToggleButton mToggleChat;
+	private Button mEmergencyButton;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +56,42 @@ public class MainActivity extends FragmentActivity {
 
 		mChatList.setAdapter(mAdapter);
 
+		// Set up the ToggleChat Button
+		mToggleChat = (ToggleButton) findViewById(R.id.toggle_chat);
+		mToggleChat.setOnTouchListener(new OnTouchListener() {
+
+			@Override
+			public boolean onTouch(View arg0, MotionEvent arg1) {
+				switch (arg1.getAction()) {
+				case MotionEvent.ACTION_UP: {
+					// Only need ACTION_UP as touching the button should
+					// automatically change state.
+					if (((ToggleButton) arg0).isChecked() == true) {
+						// If it was checked, then make it invisible and
+						// unchecked.
+						mChatList.collapseAll();
+					} else {
+						mChatList.expandAll();
+					}
+					break;
+				}
+				}
+
+				return false;
+			}
+
+		});
+
+		// Set up the emergency call button (Testing with 201.658.1091)
+		mEmergencyButton = (Button) findViewById(R.id.emergency_button);
+		mEmergencyButton.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View arg0) {
+				Intent intent = new Intent(Intent.ACTION_DIAL);
+				intent.setData(Uri.parse("tel:2016581091"));
+				startActivity(intent);
+			}
+		});
 	}
 
 	public static void enableDisableViewGroup(boolean enabled) {

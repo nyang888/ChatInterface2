@@ -13,7 +13,6 @@ import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -74,7 +73,7 @@ public class ChatListAdapter extends ArrayAdapter<ChatBlock> {
 					.findViewById(R.id.chat_message);
 			ImageView mImageView = (ImageView) mChatCell
 					.findViewById(R.id.profile_picture_toggle);
-			
+
 			if (mChatBlocks.get(position).getUserId() == 0) {
 				mImageView.setImageResource(R.drawable.system_standin);
 			} else if (mChatBlocks.get(position).getUserId() != mCurrentUserId) {
@@ -89,10 +88,13 @@ public class ChatListAdapter extends ArrayAdapter<ChatBlock> {
 			mMessageView.setText(((TextBlock) mChatBlocks.get(position))
 					.getText());
 			Button mBlank = (Button) mChatCell.findViewById(R.id.empty_blank);
-			FrameLayout mChatContainer = (FrameLayout) mChatCell
+			CustomChatContainer mChatContainer = (CustomChatContainer) mChatCell
 					.findViewById(R.id.chat_block_container);
 
 			mChatContainer.addView(mChatView);
+
+			RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) mBlank
+					.getLayoutParams();
 
 			// Here we set up an OnTouchListener to deal with swipes and clicks.
 			if (mChatBlocks.get(position).getUserId() == mCurrentUserId) {
@@ -101,12 +103,27 @@ public class ChatListAdapter extends ArrayAdapter<ChatBlock> {
 						mChatContainer, mBlank));
 				mImageView.setOnClickListener(new RightImageClickHandler(
 						mChatContainer, mBlank));
+				if (mChatContainer.isOpen() == false) {
+					mChatContainer.setX(displayMetrics.widthPixels);
+					params.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
+					params.addRule(RelativeLayout.LEFT_OF,
+							R.id.profile_picture_toggle);
+					mBlank.setLayoutParams(params);
+				}
 			} else {
 				// The case that the chatBlock is on Left:
 				mChatContainer.setOnTouchListener(new LeftTouchHandler(
 						mChatContainer, mBlank));
 				mImageView.setOnClickListener(new LeftImageClickHandler(
 						mChatContainer, mBlank));
+
+				if (mChatContainer.isOpen() == false) {
+					mChatContainer.setX(displayMetrics.widthPixels);
+					params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+					params.addRule(RelativeLayout.RIGHT_OF,
+							R.id.profile_picture_toggle);
+					mBlank.setLayoutParams(params);
+				}
 			}
 
 		}
@@ -120,11 +137,11 @@ public class ChatListAdapter extends ArrayAdapter<ChatBlock> {
 		private final int MIN_SWIPE_DISTANCE = 40 * (displayMetrics.widthPixels / 160);
 		private int x1;
 		private int x2;
-		private View mChatContainer;
+		private CustomChatContainer mChatContainer;
 		private View mBlank;
 		private RelativeLayout.LayoutParams params;
 
-		public RightTouchHandler(View _chatContainer, View _blank) {
+		public RightTouchHandler(CustomChatContainer _chatContainer, View _blank) {
 			mChatContainer = _chatContainer;
 			mBlank = _blank;
 			params = (RelativeLayout.LayoutParams) _blank.getLayoutParams();
@@ -189,11 +206,11 @@ public class ChatListAdapter extends ArrayAdapter<ChatBlock> {
 		private final int MIN_SWIPE_DISTANCE = 40 * (displayMetrics.widthPixels / 160);
 		private int x1;
 		private int x2;
-		private View mChatContainer;
+		private CustomChatContainer mChatContainer;
 		private View mBlank;
 		private RelativeLayout.LayoutParams params;
 
-		public LeftTouchHandler(View _chatContainer, View _blank) {
+		public LeftTouchHandler(CustomChatContainer _chatContainer, View _blank) {
 			mChatContainer = _chatContainer;
 			mBlank = _blank;
 			params = (RelativeLayout.LayoutParams) _blank.getLayoutParams();
@@ -254,11 +271,12 @@ public class ChatListAdapter extends ArrayAdapter<ChatBlock> {
 	}
 
 	private class RightImageClickHandler implements OnClickListener {
-		private View mChatContainer;
+		private CustomChatContainer mChatContainer;
 		private View mBlank;
 		private RelativeLayout.LayoutParams params;
 
-		public RightImageClickHandler(View _chatContainer, View _blank) {
+		public RightImageClickHandler(CustomChatContainer _chatContainer,
+				View _blank) {
 			mChatContainer = _chatContainer;
 			mBlank = _blank;
 			params = (RelativeLayout.LayoutParams) _blank.getLayoutParams();
@@ -286,11 +304,12 @@ public class ChatListAdapter extends ArrayAdapter<ChatBlock> {
 	}
 
 	private class LeftImageClickHandler implements OnClickListener {
-		private View mChatContainer;
+		private CustomChatContainer mChatContainer;
 		private View mBlank;
 		private RelativeLayout.LayoutParams params;
 
-		public LeftImageClickHandler(View _chatContainer, View _blank) {
+		public LeftImageClickHandler(CustomChatContainer _chatContainer,
+				View _blank) {
 			mChatContainer = _chatContainer;
 			mBlank = _blank;
 			params = (RelativeLayout.LayoutParams) _blank.getLayoutParams();
@@ -316,6 +335,5 @@ public class ChatListAdapter extends ArrayAdapter<ChatBlock> {
 		}
 
 	}
-	
-	
+
 }
