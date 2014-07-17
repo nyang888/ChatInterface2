@@ -132,7 +132,7 @@
         android:layout_above="@id/send_message_block"
         android:layout_below="@id/action_bar"
         android:animateLayoutChanges="true"
-        android:choiceMode="multipleChoice"
+        android:choiceMode="multipleChoiceModal"
         android:clickable="true"
         android:divider="#00ffffff"
         android:dividerHeight="0dp"

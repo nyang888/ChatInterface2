@@ -135,6 +135,7 @@ public class ChatListAdapter extends ArrayAdapter<ChatBlock> {
 	// them so much.
 	private class RightTouchHandler implements OnTouchListener {
 		private final int MIN_SWIPE_DISTANCE = 40 * (displayMetrics.widthPixels / 160);
+		private final int MIN_MOVE_DISTANCE = 5 * (displayMetrics.widthPixels / 160);
 		private int x1;
 		private int x2;
 		private CustomChatContainer mChatContainer;
@@ -156,6 +157,22 @@ public class ChatListAdapter extends ArrayAdapter<ChatBlock> {
 				x1 = (int) event.getRawX();
 				break;
 			}
+			case MotionEvent.ACTION_MOVE: {
+				// This sections is mainly just to allow for a bit of animation
+				Log.d("onTouch", "ACTION_MOVE");
+				CustomChatList.LIST_INTERCEPT_TOUCH = true;
+				x2 = (int) event.getRawX();
+				if (Math.abs(x2 - x1) >= MIN_MOVE_DISTANCE) {
+					// Only move after moving a bit left and right. Avoids the
+					// setting of the location when you are just scrolling.
+					mChatContainer.setX(x2);
+				}
+				params.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
+				params.addRule(RelativeLayout.LEFT_OF,
+						R.id.chat_block_container);
+				mBlank.setLayoutParams(params);
+				break;
+			}
 			case MotionEvent.ACTION_UP: {
 				Log.d("onTouch", "ACTION_UP");
 				CustomChatList.LIST_INTERCEPT_TOUCH = true;
@@ -166,8 +183,8 @@ public class ChatListAdapter extends ArrayAdapter<ChatBlock> {
 					params.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
 					params.addRule(RelativeLayout.LEFT_OF,
 							R.id.profile_picture_toggle);
-				} else if ((x1 - x2) >= MIN_SWIPE_DISTANCE) {
-					// If swiping from right to left: Open Chat
+				} else {
+					// Otherwise keep chat open
 					mChatContainer.setX(displayMetrics.widthPixels
 							- mChatContainer.getWidth());
 					params.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
@@ -186,8 +203,8 @@ public class ChatListAdapter extends ArrayAdapter<ChatBlock> {
 					mChatContainer.setX(displayMetrics.widthPixels);
 					params.width = displayMetrics.widthPixels;
 					params.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
-				} else if ((x1 - x2) >= MIN_SWIPE_DISTANCE) {
-					// If swiping from right to left: Open Chat
+				} else {
+					// Otherwise keep chat open
 					mChatContainer.setX(displayMetrics.widthPixels
 							- mChatContainer.getWidth());
 					params.width = displayMetrics.widthPixels
@@ -204,6 +221,7 @@ public class ChatListAdapter extends ArrayAdapter<ChatBlock> {
 
 	private class LeftTouchHandler implements OnTouchListener {
 		private final int MIN_SWIPE_DISTANCE = 40 * (displayMetrics.widthPixels / 160);
+		private final int MIN_MOVE_DISTANCE = 5 * (displayMetrics.widthPixels / 160);
 		private int x1;
 		private int x2;
 		private CustomChatContainer mChatContainer;
@@ -225,22 +243,37 @@ public class ChatListAdapter extends ArrayAdapter<ChatBlock> {
 				x1 = (int) event.getRawX();
 				break;
 			}
+			case MotionEvent.ACTION_MOVE: {
+				Log.d("onTouch", "ACTION_MOVE");
+				CustomChatList.LIST_INTERCEPT_TOUCH = true;
+				x2 = (int) event.getRawX();
+				if (Math.abs(x2 - x1) >= MIN_MOVE_DISTANCE) {
+					// Only move after moving a bit left and right. Avoids the
+					// setting of the location when you are just scrolling.
+					mChatContainer.setX(x2 - mChatContainer.getWidth());
+				}
+				params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+				params.addRule(RelativeLayout.RIGHT_OF,
+						R.id.chat_block_container);
+				mBlank.setLayoutParams(params);
+				break;
+			}
 			case MotionEvent.ACTION_UP: {
 				Log.d("onTouch", "ACTION_UP");
 				CustomChatList.LIST_INTERCEPT_TOUCH = true;
 				x2 = (int) event.getRawX();
-				if ((x2 - x1) >= MIN_SWIPE_DISTANCE) {
-					// If swiping from left to right: Open Chat
-					mChatContainer.setX(0);
-					params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
-					params.addRule(RelativeLayout.RIGHT_OF,
-							R.id.chat_block_container);
-				} else if ((x1 - x2) >= MIN_SWIPE_DISTANCE) {
+				if ((x1 - x2) >= MIN_SWIPE_DISTANCE) {
 					// If swiping from right to left: Close Chat
 					mChatContainer.setX(0 - mChatContainer.getWidth());
 					params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
 					params.addRule(RelativeLayout.RIGHT_OF,
 							R.id.profile_picture_toggle);
+				} else {
+					// Otherwise keep open
+					mChatContainer.setX(0);
+					params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+					params.addRule(RelativeLayout.RIGHT_OF,
+							R.id.chat_block_container);
 				}
 				mBlank.setLayoutParams(params);
 				break;
@@ -249,18 +282,18 @@ public class ChatListAdapter extends ArrayAdapter<ChatBlock> {
 				Log.d("onTouch", "ACTION_CANCEL");
 				CustomChatList.LIST_INTERCEPT_TOUCH = true;
 				x2 = (int) event.getRawX();
-				if ((x2 - x1) >= MIN_SWIPE_DISTANCE) {
-					// If swiping from left to right: Open Chat
-					mChatContainer.setX(0);
-					params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
-					params.addRule(RelativeLayout.RIGHT_OF,
-							R.id.chat_block_container);
-				} else if ((x1 - x2) >= MIN_SWIPE_DISTANCE) {
+				if ((x1 - x2) >= MIN_SWIPE_DISTANCE) {
 					// If swiping from right to left: Close Chat
 					mChatContainer.setX(0 - mChatContainer.getWidth());
 					params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
 					params.addRule(RelativeLayout.RIGHT_OF,
 							R.id.profile_picture_toggle);
+				} else {
+					// Otherwise keep open
+					mChatContainer.setX(0);
+					params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+					params.addRule(RelativeLayout.RIGHT_OF,
+							R.id.chat_block_container);
 				}
 				mBlank.setLayoutParams(params);
 				break;
