@@ -141,6 +141,7 @@ public class ChatListAdapter extends ArrayAdapter<ChatBlock> {
 		private CustomChatContainer mChatContainer;
 		private View mBlank;
 		private RelativeLayout.LayoutParams params;
+		private float currentX;
 
 		public RightTouchHandler(CustomChatContainer _chatContainer, View _blank) {
 			mChatContainer = _chatContainer;
@@ -155,6 +156,7 @@ public class ChatListAdapter extends ArrayAdapter<ChatBlock> {
 				Log.d("onTouch", "ACTION_DOWN");
 				CustomChatList.LIST_INTERCEPT_TOUCH = true;
 				x1 = (int) event.getRawX();
+				currentX = mChatContainer.getX();
 				break;
 			}
 			case MotionEvent.ACTION_MOVE: {
@@ -165,7 +167,7 @@ public class ChatListAdapter extends ArrayAdapter<ChatBlock> {
 				if (Math.abs(x2 - x1) >= MIN_MOVE_DISTANCE) {
 					// Only move after moving a bit left and right. Avoids the
 					// setting of the location when you are just scrolling.
-					mChatContainer.setX(x2);
+					mChatContainer.setX(currentX + (x2 - x1));
 				}
 				params.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
 				params.addRule(RelativeLayout.LEFT_OF,
@@ -227,6 +229,7 @@ public class ChatListAdapter extends ArrayAdapter<ChatBlock> {
 		private CustomChatContainer mChatContainer;
 		private View mBlank;
 		private RelativeLayout.LayoutParams params;
+		private float currentX;
 
 		public LeftTouchHandler(CustomChatContainer _chatContainer, View _blank) {
 			mChatContainer = _chatContainer;
@@ -241,6 +244,7 @@ public class ChatListAdapter extends ArrayAdapter<ChatBlock> {
 				Log.d("onTouch", "ACTION_DOWN");
 				CustomChatList.LIST_INTERCEPT_TOUCH = true;
 				x1 = (int) event.getRawX();
+				currentX = mChatContainer.getX();
 				break;
 			}
 			case MotionEvent.ACTION_MOVE: {
@@ -250,7 +254,7 @@ public class ChatListAdapter extends ArrayAdapter<ChatBlock> {
 				if (Math.abs(x2 - x1) >= MIN_MOVE_DISTANCE) {
 					// Only move after moving a bit left and right. Avoids the
 					// setting of the location when you are just scrolling.
-					mChatContainer.setX(x2 - mChatContainer.getWidth());
+					mChatContainer.setX(currentX - (x1 - x2));
 				}
 				params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
 				params.addRule(RelativeLayout.RIGHT_OF,
@@ -320,7 +324,7 @@ public class ChatListAdapter extends ArrayAdapter<ChatBlock> {
 			CustomChatList.LIST_INTERCEPT_TOUCH = true;
 			if (mChatContainer.getX() >= displayMetrics.widthPixels) {
 				// If the chat is closed, open
-				mChatContainer.setX(displayMetrics.widthPixels
+				mChatContainer.setX(mChatContainer.getX()
 						- mChatContainer.getWidth());
 				params.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
 				params.addRule(RelativeLayout.LEFT_OF,
