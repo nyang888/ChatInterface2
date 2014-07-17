@@ -95,10 +95,8 @@ public class MainActivity extends FragmentActivity implements LocationListener {
 					break;
 				}
 				}
-
 				return false;
 			}
-
 		});
 
 		// Set up the emergency call button (Testing with 201.658.1091)
@@ -150,19 +148,16 @@ public class MainActivity extends FragmentActivity implements LocationListener {
 	@Override
 	public void onProviderDisabled(String arg0) {
 		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	public void onProviderEnabled(String arg0) {
 		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	public void onStatusChanged(String arg0, int arg1, Bundle arg2) {
 		// TODO Auto-generated method stub
-
 	}
 
 }

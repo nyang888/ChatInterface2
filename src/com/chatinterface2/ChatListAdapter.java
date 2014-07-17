@@ -168,6 +168,11 @@ public class ChatListAdapter extends ArrayAdapter<ChatBlock> {
 					// Only move after moving a bit left and right. Avoids the
 					// setting of the location when you are just scrolling.
 					mChatContainer.setX(currentX + (x2 - x1));
+					if (mChatContainer.getX() < displayMetrics.widthPixels
+							- mChatContainer.getWidth()) {
+						mChatContainer.setX(displayMetrics.widthPixels
+								- mChatContainer.getWidth());
+					}
 				}
 				params.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
 				params.addRule(RelativeLayout.LEFT_OF,
@@ -255,6 +260,9 @@ public class ChatListAdapter extends ArrayAdapter<ChatBlock> {
 					// Only move after moving a bit left and right. Avoids the
 					// setting of the location when you are just scrolling.
 					mChatContainer.setX(currentX - (x1 - x2));
+					if (mChatContainer.getX() > 0) {
+						mChatContainer.setX(0);
+					}
 				}
 				params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
 				params.addRule(RelativeLayout.RIGHT_OF,
