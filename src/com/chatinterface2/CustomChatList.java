@@ -94,40 +94,20 @@ public class CustomChatList extends ListView {
 	}
 
 	public void collapseAll() {
-		for (int i = 0; i < super.getChildCount(); i++) {
-			View v = super.getAdapter().getView(i, null, null);
-			if (v != null) {
-				Log.d("collapseAll", "getCell Succeed");
-				CustomChatContainer mChatContainer = (CustomChatContainer) v
-						.findViewById(R.id.chat_block_container);
-				CustomBlankCell mBlank = (CustomBlankCell) v
-						.findViewById(R.id.empty_blank);
-				if (mChatContainer != null && mBlank != null) {
-					Log.d("collapseAll", "mChatContainer Succeed");
-					mChatContainer.setOpen(false);
-					((ArrayAdapter<ChatBlock>) super.getAdapter())
-							.notifyDataSetChanged();
-				}
-			}
+		for (int i = 0; i < mChatList.size(); i++) {
+			Log.d("collapseAll", "mChatContainer Succeed");
+			mChatList.get(i).setOpen(false);
+			((ArrayAdapter<ChatBlock>) super.getAdapter())
+					.notifyDataSetChanged();
 		}
 	}
 
 	public void expandAll() {
-		for (int i = 0; i < super.getChildCount(); i++) {
-			View v = super.getAdapter().getView(i, null, null);
-			if (v != null) {
-				Log.d("collapseAll", "getCell Succeed");
-				CustomChatContainer mChatContainer = (CustomChatContainer) v
-						.findViewById(R.id.chat_block_container);
-				CustomBlankCell mBlank = (CustomBlankCell) v
-						.findViewById(R.id.empty_blank);
-				if (mChatContainer != null && mBlank != null) {
-					Log.d("collapseAll", "mChatContainer Succeed");
-					mChatContainer.setOpen(true);
-					((ArrayAdapter<ChatBlock>) super.getAdapter())
-							.notifyDataSetChanged();
-				}
-			}
+		for (int i = 0; i < mChatList.size(); i++) {
+			Log.d("collapseAll", "mChatContainer Succeed");
+			mChatList.get(i).setOpen(true);
+			((ArrayAdapter<ChatBlock>) super.getAdapter())
+					.notifyDataSetChanged();
 		}
 	}
 

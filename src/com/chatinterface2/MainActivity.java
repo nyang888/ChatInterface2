@@ -115,9 +115,15 @@ public class MainActivity extends FragmentActivity implements LocationListener {
 		mLocationButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View arg0) {
-				CameraUpdate cameraUpdate = CameraUpdateFactory
-						.newLatLng(mCurrentLatLng);
-				mGoogleMap.animateCamera(cameraUpdate);
+				if (mGoogleMap.getCameraPosition().zoom <= 13) {
+					CameraUpdate cameraUpdate = CameraUpdateFactory
+							.newLatLngZoom(mCurrentLatLng, 16);
+					mGoogleMap.animateCamera(cameraUpdate);
+				} else {
+					CameraUpdate cameraUpdate = CameraUpdateFactory
+							.newLatLng(mCurrentLatLng);
+					mGoogleMap.animateCamera(cameraUpdate);
+				}
 			}
 		});
 
@@ -140,7 +146,7 @@ public class MainActivity extends FragmentActivity implements LocationListener {
 				location.getLongitude());
 		mCurrentLatLng = latLng;
 		CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(latLng,
-				15);
+				16);
 		mGoogleMap.animateCamera(cameraUpdate);
 		mLocationManager.removeUpdates(this);
 	}
