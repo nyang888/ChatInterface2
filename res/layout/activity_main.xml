@@ -6,6 +6,22 @@
     tools:context="com.chatinterface2.MainActivity"
     tools:ignore="MergeRootFrame" >
 
+    <FrameLayout
+        android:id="@+id/map_wrapper"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true" >
+
+        <fragment
+            android:id="@+id/map"
+            android:name="com.google.android.gms.maps.SupportMapFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </FrameLayout>
+
     <RelativeLayout
         android:id="@+id/action_bar"
         android:layout_width="fill_parent"
@@ -119,20 +135,6 @@
             android:text="@string/send"
             android:textColor="#ffffffff"
             android:textStyle="bold" />
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/map_wrapper"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@id/send_message_block"
-        android:layout_below="@id/action_bar" >
-
-        <fragment
-            android:id="@+id/map"
-            android:name="com.google.android.gms.maps.SupportMapFragment"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
     </RelativeLayout>
 
     <com.chatinterface2.CustomChatList

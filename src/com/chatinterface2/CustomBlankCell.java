@@ -4,6 +4,7 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
+import android.view.View;
 import android.widget.Button;
 
 public class CustomBlankCell extends Button {
@@ -24,6 +25,7 @@ public class CustomBlankCell extends Button {
 	// the touch to the wrapper for the map.
 	@Override
 	public boolean dispatchTouchEvent(MotionEvent ev) {
+
 		if (ev.getAction() != 3) {
 			CustomChatList.LIST_INTERCEPT_TOUCH = false;
 			ev.setLocation(ev.getRawX(), ev.getRawY());

@@ -16,7 +16,7 @@ import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.RelativeLayout;
+import android.widget.FrameLayout;
 import android.widget.ToggleButton;
 
 import com.google.android.gms.maps.CameraUpdate;
@@ -30,7 +30,7 @@ public class MainActivity extends FragmentActivity implements LocationListener {
 	private GoogleMap mGoogleMap;
 	private JSONArray mJsonArray = new JSONArray();
 	public static int CURRENT_USER_ID;
-	public static RelativeLayout MAP_WRAPPER;
+	public static FrameLayout MAP_WRAPPER;
 	public static CustomChatList mChatList;
 	private ToggleButton mToggleChat;
 	private Button mEmergencyButton;
@@ -47,14 +47,16 @@ public class MainActivity extends FragmentActivity implements LocationListener {
 		setContentView(R.layout.activity_main);
 		CURRENT_USER_ID = 10001714; // This is a test userId from the testJson.
 		// Use static variable to allow access from the different views.
-		MAP_WRAPPER = (RelativeLayout) findViewById(R.id.map_wrapper);
+		MAP_WRAPPER = (FrameLayout) findViewById(R.id.map_wrapper);
 
 		// Configure the google map: No Zoom in/out Button
 		mGoogleMap = ((SupportMapFragment) getSupportFragmentManager()
 				.findFragmentById(R.id.map)).getMap();
 		mGoogleMap.getUiSettings().setZoomControlsEnabled(false);
-		mGoogleMap.setMyLocationEnabled(true);
 		mGoogleMap.getUiSettings().setMyLocationButtonEnabled(false);
+		mGoogleMap.setMyLocationEnabled(true);
+		mGoogleMap.setIndoorEnabled(true);
+		mGoogleMap.setBuildingsEnabled(true);
 
 		mLocationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 		mLocationManager.requestLocationUpdates(
