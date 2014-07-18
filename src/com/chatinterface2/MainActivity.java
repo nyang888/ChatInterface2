@@ -39,6 +39,7 @@ public class MainActivity extends FragmentActivity implements LocationListener {
 	private static final float MIN_DISTANCE = 1000;
 	private LatLng mCurrentLatLng;
 	private Button mLocationButton;
+	private Button mAddMediaButton;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -125,6 +126,19 @@ public class MainActivity extends FragmentActivity implements LocationListener {
 					mGoogleMap.animateCamera(cameraUpdate);
 				}
 			}
+		});
+
+		// Set Add-Media Button
+		mAddMediaButton = (Button) findViewById(R.id.add_media);
+		mAddMediaButton.setOnClickListener(new OnClickListener() {
+			Intent mediaChooser = new Intent(Intent.ACTION_GET_CONTENT);
+
+			@Override
+			public void onClick(View arg0) {
+				mediaChooser.setType("video/*, images/*");
+				startActivityForResult(mediaChooser, 1);
+			}
+
 		});
 
 	}
