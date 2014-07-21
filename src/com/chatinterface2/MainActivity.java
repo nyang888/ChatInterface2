@@ -108,7 +108,7 @@ public class MainActivity extends FragmentActivity implements LocationListener {
 			@Override
 			public void onClick(View arg0) {
 				Intent intent = new Intent(Intent.ACTION_DIAL);
-				intent.setData(Uri.parse("tel:2016581091"));
+				intent.setData(Uri.parse("tel:911"));
 				startActivity(intent);
 			}
 		});

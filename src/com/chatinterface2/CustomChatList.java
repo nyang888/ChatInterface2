@@ -24,31 +24,19 @@ public class CustomChatList extends ListView {
 	public CustomChatList(Context _context) {
 		super(_context);
 		LIST_INTERCEPT_TOUCH = true;
-		displayMetrics = _context.getResources().getDisplayMetrics();
+		mListOfChatBlocks.add(new EmptyBlock());
 	}
 
 	public CustomChatList(Context _context, AttributeSet attr) {
 		super(_context, attr);
 		LIST_INTERCEPT_TOUCH = true;
-		displayMetrics = _context.getResources().getDisplayMetrics();
+		mListOfChatBlocks.add(new EmptyBlock());
 	}
 
 	public CustomChatList(Context _context, AttributeSet _attr, int _defStyle) {
 		super(_context, _attr, _defStyle);
 		LIST_INTERCEPT_TOUCH = true;
-		displayMetrics = _context.getResources().getDisplayMetrics();
-	}
-
-	@Override
-	protected boolean overScrollBy(int deltaX, int deltaY, int scrollX,
-			int scrollY, int scrollRangeX, int scrollRangeY,
-			int maxOverScrollX, int maxOverScrollY, boolean isTouchEvent) {
-		// Refresh list when scrolling up.
-		((ArrayAdapter<ChatBlock>) super.getAdapter()).notifyDataSetChanged();
-
-		return super.overScrollBy(deltaX, deltaY, scrollX, scrollY,
-				scrollRangeX, scrollRangeY, maxOverScrollX,
-				5 * (displayMetrics.heightPixels / 160), isTouchEvent);
+		mListOfChatBlocks.add(new EmptyBlock());
 	}
 
 	// This function adds a JSONObject to the list of chats.
