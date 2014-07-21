@@ -1464,15 +1464,16 @@ containing a value of this type.
         public static final int ic_plusone_standard_off_client=0x7f020079;
         public static final int ic_plusone_tall_off_client=0x7f02007a;
         public static final int left_chat_round=0x7f02007b;
-        public static final int my_location=0x7f02007c;
-        public static final int powered_by_google_dark=0x7f02007d;
-        public static final int powered_by_google_light=0x7f02007e;
-        public static final int right_chat_round=0x7f02007f;
-        public static final int send_text_box=0x7f020080;
-        public static final int system_standin=0x7f020081;
-        public static final int toggle_chat=0x7f020082;
-        public static final int toggle_off=0x7f020083;
-        public static final int toggle_on=0x7f020084;
+        public static final int load_standin=0x7f02007c;
+        public static final int my_location=0x7f02007d;
+        public static final int powered_by_google_dark=0x7f02007e;
+        public static final int powered_by_google_light=0x7f02007f;
+        public static final int right_chat_round=0x7f020080;
+        public static final int send_text_box=0x7f020081;
+        public static final int system_standin=0x7f020082;
+        public static final int toggle_chat=0x7f020083;
+        public static final int toggle_off=0x7f020084;
+        public static final int toggle_on=0x7f020085;
     }
     public static final class id {
         public static final int action_bar=0x7f05002e;

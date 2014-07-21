@@ -2,15 +2,22 @@ package com.chatinterface2;
 
 import java.util.ArrayList;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnLongClickListener;
 import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.Animation.AnimationListener;
+import android.view.animation.TranslateAnimation;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -19,7 +26,7 @@ import android.widget.TextView;
 
 public class ChatListAdapter extends ArrayAdapter<ChatBlock> {
 	private Context mContext;
-	private ArrayList<ChatBlock> mChatBlocks;
+	private ArrayList<ChatBlock> mListOfChatBlocks;
 	private int mCurrentUserId;
 	private DisplayMetrics displayMetrics;
 
@@ -27,7 +34,7 @@ public class ChatListAdapter extends ArrayAdapter<ChatBlock> {
 	public ChatListAdapter(Context _context, ArrayList<ChatBlock> _chatBlocks) {
 		super(_context, R.layout.text_chat_block_left, _chatBlocks);
 		mContext = _context;
-		mChatBlocks = _chatBlocks;
+		mListOfChatBlocks = _chatBlocks;
 		mCurrentUserId = MainActivity.CURRENT_USER_ID;
 		displayMetrics = mContext.getResources().getDisplayMetrics();
 	}
@@ -43,92 +50,99 @@ public class ChatListAdapter extends ArrayAdapter<ChatBlock> {
 		// better. We need to check what type of block the cell will be first.
 		// That includes checking to see if it will be an empty cell used for
 		// spacing.
-		View mChatCell;
-		if (mChatBlocks.get(position) instanceof EmptyBlock) {
-			mChatCell = mInflater.inflate(R.layout.empty_cell, parent, false);
+		View mChatListCell;
+		if (mListOfChatBlocks.get(position) instanceof EmptyBlock) {
+			mChatListCell = mInflater.inflate(R.layout.empty_cell, parent,
+					false);
 		} else {
 			// In order to differentiate between the current user and the
 			// others, we need to first check each chatBlock for the userId. And
 			// then we inflate the corresponding layout, either left or right.
-			View mChatView;
-			if (mChatBlocks.get(position).getUserId() != mCurrentUserId) {
-				mChatCell = mInflater.inflate(R.layout.chat_cell_left, parent,
-						false);
-				mChatView = mInflater.inflate(R.layout.text_chat_block_left,
+			View mChatBlockSection;
+			if (mListOfChatBlocks.get(position).getUserId() != mCurrentUserId) {
+				mChatListCell = mInflater.inflate(R.layout.chat_cell_left,
 						parent, false);
+				mChatBlockSection = mInflater.inflate(
+						R.layout.text_chat_block_left, parent, false);
 
 			} else {
-				mChatCell = mInflater.inflate(R.layout.chat_cell_right, parent,
-						false);
-				mChatView = mInflater.inflate(R.layout.text_chat_block_right,
+				mChatListCell = mInflater.inflate(R.layout.chat_cell_right,
 						parent, false);
+				mChatBlockSection = mInflater.inflate(
+						R.layout.text_chat_block_right, parent, false);
 			}
 
 			// Here we retrieve the remaining views from the layouts.
-			TextView mNameView = (TextView) mChatView
+			TextView mNameView = (TextView) mChatBlockSection
 					.findViewById(R.id.profile_name);
-			TextView mDateView = (TextView) mChatView
+			TextView mDateView = (TextView) mChatBlockSection
 					.findViewById(R.id.time_stamp);
-			TextView mMessageView = (TextView) mChatView
+			TextView mMessageView = (TextView) mChatBlockSection
 					.findViewById(R.id.chat_message);
-			ImageView mImageView = (ImageView) mChatCell
+			ImageView mProfilePictureView = (ImageView) mChatListCell
 					.findViewById(R.id.profile_picture_toggle);
 
-			if (mChatBlocks.get(position).getUserId() == 0) {
-				mImageView.setImageResource(R.drawable.system_standin);
-			} else if (mChatBlocks.get(position).getUserId() != mCurrentUserId) {
-				mImageView.setImageResource(R.drawable.boy_standin);
+			if (mListOfChatBlocks.get(position).getUserId() == 0) {
+				mProfilePictureView.setImageResource(R.drawable.system_standin);
+			} else if (mListOfChatBlocks.get(position).getUserId() != mCurrentUserId) {
+				mProfilePictureView.setImageResource(R.drawable.boy_standin);
 			} else {
-				mImageView.setImageResource(R.drawable.girl_standin);
+				mProfilePictureView.setImageResource(R.drawable.girl_standin);
 			}
 
 			// Here we set the values for each of the views.
-			mNameView.setText(mChatBlocks.get(position).getUsername());
-			mDateView.setText(mChatBlocks.get(position).getDateString());
-			mMessageView.setText(((TextBlock) mChatBlocks.get(position))
+			mNameView.setText(mListOfChatBlocks.get(position).getUsername());
+			mDateView.setText(mListOfChatBlocks.get(position).getDateString());
+			mMessageView.setText(((TextBlock) mListOfChatBlocks.get(position))
 					.getText());
-			Button mBlank = (Button) mChatCell.findViewById(R.id.empty_blank);
-			CustomChatContainer mChatContainer = (CustomChatContainer) mChatCell
+			Button mBlankArea = (Button) mChatListCell
+					.findViewById(R.id.empty_blank);
+			CustomChatContainer mChatBlockContainer = (CustomChatContainer) mChatListCell
 					.findViewById(R.id.chat_block_container);
 
-			mChatContainer.addView(mChatView);
+			mChatBlockContainer.addView(mChatBlockSection);
 
-			RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) mBlank
+			RelativeLayout.LayoutParams mBlankAreaParams = (RelativeLayout.LayoutParams) mBlankArea
 					.getLayoutParams();
 
 			// Here we set up an OnTouchListener to deal with swipes and clicks.
-			if (mChatBlocks.get(position).getUserId() == mCurrentUserId) {
+			if (mListOfChatBlocks.get(position).getUserId() == mCurrentUserId) {
 				// In the case that the chatBlock in on the right:
-				mChatContainer.setOnTouchListener(new RightTouchHandler(
-						mChatContainer, mBlank, position));
-				mImageView.setOnClickListener(new RightImageClickHandler(
-						mChatContainer, mBlank, position));
-				if (mChatBlocks.get(position).getOpen() == false) {
-					mChatContainer.setX(displayMetrics.widthPixels);
-					params.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
-					params.addRule(RelativeLayout.LEFT_OF,
+				mChatBlockContainer.setOnTouchListener(new RightTouchHandler(
+						mChatBlockContainer, mBlankArea, position));
+				mProfilePictureView
+						.setOnClickListener(new RightImageClickHandler(
+								mChatBlockContainer, mBlankArea, position));
+				if (mListOfChatBlocks.get(position).getOpen() == false) {
+					mChatBlockContainer.setX(displayMetrics.widthPixels);
+					mBlankAreaParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
+					mBlankAreaParams.addRule(RelativeLayout.LEFT_OF,
 							R.id.profile_picture_toggle);
-					mBlank.setLayoutParams(params);
+					mBlankArea.setLayoutParams(mBlankAreaParams);
 				}
 			} else {
 				// The case that the chatBlock is on Left:
-				mChatContainer.setOnTouchListener(new LeftTouchHandler(
-						mChatContainer, mBlank, position));
-				mImageView.setOnClickListener(new LeftImageClickHandler(
-						mChatContainer, mBlank, position));
+				mChatBlockContainer.setOnTouchListener(new LeftTouchHandler(
+						mChatBlockContainer, mBlankArea, position));
+				mProfilePictureView
+						.setOnClickListener(new LeftImageClickHandler(
+								mChatBlockContainer, mBlankArea, position));
 
-				if (mChatBlocks.get(position).getOpen() == false) {
-					mChatContainer.setX(displayMetrics.widthPixels);
-					params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
-					params.addRule(RelativeLayout.RIGHT_OF,
+				if (mListOfChatBlocks.get(position).getOpen() == false) {
+					mChatBlockContainer.setX(displayMetrics.widthPixels);
+					mBlankAreaParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+					mBlankAreaParams.addRule(RelativeLayout.RIGHT_OF,
 							R.id.profile_picture_toggle);
-					mBlank.setLayoutParams(params);
+					mBlankArea.setLayoutParams(mBlankAreaParams);
 				}
 			}
 
+			mProfilePictureView.setOnLongClickListener(new LongClickHandler(
+					mListOfChatBlocks.get(position).getTele()));
+
 		}
 
-		return mChatCell;
+		return mChatListCell;
 	}
 
 	// Here we implement the touch listeners as separate classes since we use
@@ -136,20 +150,21 @@ public class ChatListAdapter extends ArrayAdapter<ChatBlock> {
 	private class RightTouchHandler implements OnTouchListener {
 		private final int MIN_SWIPE_DISTANCE = 10 * (displayMetrics.widthPixels / 160);
 		private final int MIN_MOVE_DISTANCE = 5 * (displayMetrics.widthPixels / 160);
-		private int x1;
-		private int x2;
-		private CustomChatContainer mChatContainer;
-		private View mBlank;
-		private RelativeLayout.LayoutParams params;
-		private float currentX;
-		private int mPosition;
+		private int prevX;
+		private int newX;
+		private CustomChatContainer mChatViewContainer;
+		private View mBlankArea;
+		private RelativeLayout.LayoutParams mBlankAreaParams;
+		private float currentChatViewContainerX;
+		private int mPositioninArray;
 
 		public RightTouchHandler(CustomChatContainer _chatContainer,
 				View _blank, int position) {
-			mChatContainer = _chatContainer;
-			mBlank = _blank;
-			params = (RelativeLayout.LayoutParams) _blank.getLayoutParams();
-			mPosition = position;
+			mChatViewContainer = _chatContainer;
+			mBlankArea = _blank;
+			mBlankAreaParams = (RelativeLayout.LayoutParams) _blank
+					.getLayoutParams();
+			mPositioninArray = position;
 		}
 
 		@Override
@@ -158,74 +173,114 @@ public class ChatListAdapter extends ArrayAdapter<ChatBlock> {
 			case MotionEvent.ACTION_DOWN: {
 				Log.d("onTouch", "ACTION_DOWN");
 				CustomChatList.LIST_INTERCEPT_TOUCH = true;
-				x1 = (int) event.getRawX();
-				currentX = mChatContainer.getX();
+				prevX = (int) event.getRawX();
+				currentChatViewContainerX = mChatViewContainer.getX();
 				break;
 			}
 			case MotionEvent.ACTION_MOVE: {
 				// This sections is mainly just to allow for a bit of animation
 				Log.d("onTouch", "ACTION_MOVE");
 				CustomChatList.LIST_INTERCEPT_TOUCH = true;
-				x2 = (int) event.getRawX();
-				if (Math.abs(x2 - x1) >= MIN_MOVE_DISTANCE) {
+				newX = (int) event.getRawX();
+				if (Math.abs(newX - prevX) >= MIN_MOVE_DISTANCE) {
 					// Only move after moving a bit left and right. Avoids the
 					// setting of the location when you are just scrolling.
-					mChatContainer.setX(currentX + (x2 - x1));
-					if (mChatContainer.getX() < displayMetrics.widthPixels
-							- mChatContainer.getWidth()) {
-						mChatContainer.setX(displayMetrics.widthPixels
-								- mChatContainer.getWidth());
+					mChatViewContainer.setX(currentChatViewContainerX
+							+ (newX - prevX));
+					if (mChatViewContainer.getX() < displayMetrics.widthPixels
+							- mChatViewContainer.getWidth()) {
+						mChatViewContainer.setX(displayMetrics.widthPixels
+								- mChatViewContainer.getWidth());
 					}
 				}
-				params.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
-				params.addRule(RelativeLayout.LEFT_OF,
+				mBlankAreaParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
+				mBlankAreaParams.addRule(RelativeLayout.LEFT_OF,
 						R.id.chat_block_container);
-				mBlank.setLayoutParams(params);
+				mBlankArea.setLayoutParams(mBlankAreaParams);
 				break;
 			}
 			case MotionEvent.ACTION_UP: {
 				Log.d("onTouch", "ACTION_UP");
 				CustomChatList.LIST_INTERCEPT_TOUCH = true;
-				x2 = (int) event.getRawX();
-				if ((x2 - x1) >= MIN_SWIPE_DISTANCE) {
+				newX = (int) event.getRawX();
+				if ((newX - prevX) >= MIN_SWIPE_DISTANCE) {
 					// If swiping from left to right: Close Chat
-					mChatContainer.setX(displayMetrics.widthPixels);
-					mChatBlocks.get(mPosition).setOpen(false);
-					params.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
-					params.addRule(RelativeLayout.LEFT_OF,
+					TranslateAnimation animation = new TranslateAnimation(0,
+							mChatViewContainer.getWidth(), 0, 0);
+					animation.setDuration(200);
+					animation.setAnimationListener(new AnimationListener() {
+
+						@Override
+						public void onAnimationEnd(Animation arg0) {
+							mChatViewContainer.setX(displayMetrics.widthPixels);
+						}
+
+						@Override
+						public void onAnimationRepeat(Animation arg0) {
+						}
+
+						@Override
+						public void onAnimationStart(Animation arg0) {
+						}
+
+					});
+					mChatViewContainer.startAnimation(animation);
+					mListOfChatBlocks.get(mPositioninArray).setOpen(false);
+					mBlankAreaParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
+					mBlankAreaParams.addRule(RelativeLayout.LEFT_OF,
 							R.id.profile_picture_toggle);
 				} else {
 					// Otherwise keep chat open
-					mChatContainer.setX(displayMetrics.widthPixels
-							- mChatContainer.getWidth());
-					params.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
-					params.addRule(RelativeLayout.LEFT_OF,
+					mChatViewContainer.setX(displayMetrics.widthPixels
+							- mChatViewContainer.getWidth());
+					mBlankAreaParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
+					mBlankAreaParams.addRule(RelativeLayout.LEFT_OF,
 							R.id.chat_block_container);
-					mChatBlocks.get(mPosition).setOpen(true);
+					mListOfChatBlocks.get(mPositioninArray).setOpen(true);
 				}
-				mBlank.setLayoutParams(params);
+				mBlankArea.setLayoutParams(mBlankAreaParams);
 				break;
 			}
 			case MotionEvent.ACTION_CANCEL: {
 				Log.d("onTouch", "ACTION_CANCEL");
 				CustomChatList.LIST_INTERCEPT_TOUCH = true;
-				x2 = (int) event.getRawX();
-				if ((x2 - x1) >= MIN_SWIPE_DISTANCE) {
+				newX = (int) event.getRawX();
+				if ((newX - prevX) >= MIN_SWIPE_DISTANCE) {
 					// If swiping from left to right: Close Chat
-					mChatContainer.setX(displayMetrics.widthPixels);
-					params.width = displayMetrics.widthPixels;
-					params.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
-					mChatBlocks.get(mPosition).setOpen(false);
+					TranslateAnimation animation = new TranslateAnimation(0,
+							mChatViewContainer.getWidth(), 0, 0);
+					animation.setDuration(200);
+					animation.setAnimationListener(new AnimationListener() {
+
+						@Override
+						public void onAnimationEnd(Animation arg0) {
+							mChatViewContainer.setX(displayMetrics.widthPixels);
+						}
+
+						@Override
+						public void onAnimationRepeat(Animation arg0) {
+						}
+
+						@Override
+						public void onAnimationStart(Animation arg0) {
+						}
+
+					});
+					mChatViewContainer.startAnimation(animation);
+					mListOfChatBlocks.get(mPositioninArray).setOpen(false);
+					mBlankAreaParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
+					mBlankAreaParams.addRule(RelativeLayout.LEFT_OF,
+							R.id.profile_picture_toggle);
 				} else {
 					// Otherwise keep chat open
-					mChatContainer.setX(displayMetrics.widthPixels
-							- mChatContainer.getWidth());
-					params.width = displayMetrics.widthPixels
-							- mChatContainer.getWidth();
-					params.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
-					mChatBlocks.get(mPosition).setOpen(true);
+					mChatViewContainer.setX(displayMetrics.widthPixels
+							- mChatViewContainer.getWidth());
+					mBlankAreaParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
+					mBlankAreaParams.addRule(RelativeLayout.LEFT_OF,
+							R.id.chat_block_container);
+					mListOfChatBlocks.get(mPositioninArray).setOpen(true);
 				}
-				mBlank.setLayoutParams(params);
+				mBlankArea.setLayoutParams(mBlankAreaParams);
 				break;
 			}
 			}
@@ -236,20 +291,21 @@ public class ChatListAdapter extends ArrayAdapter<ChatBlock> {
 	private class LeftTouchHandler implements OnTouchListener {
 		private final int MIN_SWIPE_DISTANCE = 10 * (displayMetrics.widthPixels / 160);
 		private final int MIN_MOVE_DISTANCE = 5 * (displayMetrics.widthPixels / 160);
-		private int x1;
-		private int x2;
-		private CustomChatContainer mChatContainer;
-		private View mBlank;
-		private RelativeLayout.LayoutParams params;
-		private int mPosition;
+		private int prevX;
+		private int newX;
+		private CustomChatContainer mChatViewContainer;
+		private View mBlankArea;
+		private RelativeLayout.LayoutParams mBlankAreaParams;
+		private int mPositionInArray;
 		private float currentX;
 
 		public LeftTouchHandler(CustomChatContainer _chatContainer,
 				View _blank, int position) {
-			mChatContainer = _chatContainer;
-			mBlank = _blank;
-			params = (RelativeLayout.LayoutParams) _blank.getLayoutParams();
-			mPosition = position;
+			mChatViewContainer = _chatContainer;
+			mBlankArea = _blank;
+			mBlankAreaParams = (RelativeLayout.LayoutParams) _blank
+					.getLayoutParams();
+			mPositionInArray = position;
 		}
 
 		@Override
@@ -258,70 +314,112 @@ public class ChatListAdapter extends ArrayAdapter<ChatBlock> {
 			case MotionEvent.ACTION_DOWN: {
 				Log.d("onTouch", "ACTION_DOWN");
 				CustomChatList.LIST_INTERCEPT_TOUCH = true;
-				x1 = (int) event.getRawX();
-				currentX = mChatContainer.getX();
+				prevX = (int) event.getRawX();
+				currentX = mChatViewContainer.getX();
 				break;
 			}
 			case MotionEvent.ACTION_MOVE: {
 				Log.d("onTouch", "ACTION_MOVE");
 				CustomChatList.LIST_INTERCEPT_TOUCH = true;
-				x2 = (int) event.getRawX();
-				if (Math.abs(x2 - x1) >= MIN_MOVE_DISTANCE) {
+				newX = (int) event.getRawX();
+				if (Math.abs(newX - prevX) >= MIN_MOVE_DISTANCE) {
 					// Only move after moving a bit left and right. Avoids the
 					// setting of the location when you are just scrolling.
-					mChatContainer.setX(currentX - (x1 - x2));
-					if (mChatContainer.getX() > 0) {
-						mChatContainer.setX(0);
+					mChatViewContainer.setX(currentX - (prevX - newX));
+					if (mChatViewContainer.getX() > 0) {
+						mChatViewContainer.setX(0);
 					}
 				}
-				params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
-				params.addRule(RelativeLayout.RIGHT_OF,
+				mBlankAreaParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+				mBlankAreaParams.addRule(RelativeLayout.RIGHT_OF,
 						R.id.chat_block_container);
-				mBlank.setLayoutParams(params);
+				mBlankArea.setLayoutParams(mBlankAreaParams);
 				break;
 			}
 			case MotionEvent.ACTION_UP: {
 				Log.d("onTouch", "ACTION_UP");
 				CustomChatList.LIST_INTERCEPT_TOUCH = true;
-				x2 = (int) event.getRawX();
-				if ((x1 - x2) >= MIN_SWIPE_DISTANCE) {
+				newX = (int) event.getRawX();
+				if ((prevX - newX) >= MIN_SWIPE_DISTANCE) {
 					// If swiping from right to left: Close Chat
-					mChatContainer.setX(0 - mChatContainer.getWidth());
-					params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
-					params.addRule(RelativeLayout.RIGHT_OF,
+					TranslateAnimation animation = new TranslateAnimation(0,
+							-mChatViewContainer.getWidth(), 0, 0);
+					animation.setDuration(200);
+					animation.setAnimationListener(new AnimationListener() {
+
+						@Override
+						public void onAnimationEnd(Animation arg0) {
+							mChatViewContainer.setX(0 - mChatViewContainer
+									.getWidth());
+						}
+
+						@Override
+						public void onAnimationRepeat(Animation arg0) {
+						}
+
+						@Override
+						public void onAnimationStart(Animation arg0) {
+						}
+
+					});
+					mChatViewContainer.startAnimation(animation);
+					mBlankAreaParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+					mBlankAreaParams.addRule(RelativeLayout.RIGHT_OF,
 							R.id.profile_picture_toggle);
-					mChatBlocks.get(mPosition).setOpen(false);
+					mListOfChatBlocks.get(mPositionInArray).setOpen(false);
 				} else {
 					// Otherwise keep open
-					mChatContainer.setX(0);
-					params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
-					params.addRule(RelativeLayout.RIGHT_OF,
+					mChatViewContainer.setX(0);
+					mBlankAreaParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+					mBlankAreaParams.addRule(RelativeLayout.RIGHT_OF,
 							R.id.chat_block_container);
-					mChatBlocks.get(mPosition).setOpen(true);
+					mListOfChatBlocks.get(mPositionInArray).setOpen(true);
+
 				}
-				mBlank.setLayoutParams(params);
+				mBlankArea.setLayoutParams(mBlankAreaParams);
 				break;
 			}
 			case MotionEvent.ACTION_CANCEL: {
 				Log.d("onTouch", "ACTION_CANCEL");
 				CustomChatList.LIST_INTERCEPT_TOUCH = true;
-				x2 = (int) event.getRawX();
-				if ((x1 - x2) >= MIN_SWIPE_DISTANCE) {
+				newX = (int) event.getRawX();
+				if ((prevX - newX) >= MIN_SWIPE_DISTANCE) {
 					// If swiping from right to left: Close Chat
-					mChatContainer.setX(0 - mChatContainer.getWidth());
-					params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
-					params.addRule(RelativeLayout.RIGHT_OF,
+					TranslateAnimation animation = new TranslateAnimation(0,
+							-mChatViewContainer.getWidth(), 0, 0);
+					animation.setDuration(200);
+					animation.setAnimationListener(new AnimationListener() {
+
+						@Override
+						public void onAnimationEnd(Animation arg0) {
+							mChatViewContainer.setX(0 - mChatViewContainer
+									.getWidth());
+						}
+
+						@Override
+						public void onAnimationRepeat(Animation arg0) {
+						}
+
+						@Override
+						public void onAnimationStart(Animation arg0) {
+						}
+
+					});
+					mChatViewContainer.startAnimation(animation);
+					mBlankAreaParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+					mBlankAreaParams.addRule(RelativeLayout.RIGHT_OF,
 							R.id.profile_picture_toggle);
-					mChatBlocks.get(mPosition).setOpen(false);
+					mListOfChatBlocks.get(mPositionInArray).setOpen(false);
 				} else {
 					// Otherwise keep open
-					mChatContainer.setX(0);
-					params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
-					params.addRule(RelativeLayout.RIGHT_OF,
+					mChatViewContainer.setX(0);
+					mBlankAreaParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+					mBlankAreaParams.addRule(RelativeLayout.RIGHT_OF,
 							R.id.chat_block_container);
-					mChatBlocks.get(mPosition).setOpen(true);
+					mListOfChatBlocks.get(mPositionInArray).setOpen(true);
+
 				}
-				mBlank.setLayoutParams(params);
+				mBlankArea.setLayoutParams(mBlankAreaParams);
 				break;
 			}
 			}
@@ -330,77 +428,178 @@ public class ChatListAdapter extends ArrayAdapter<ChatBlock> {
 	}
 
 	private class RightImageClickHandler implements OnClickListener {
-		private CustomChatContainer mChatContainer;
-		private View mBlank;
-		private RelativeLayout.LayoutParams params;
-		private int mPosition;
+		private CustomChatContainer mChatViewContainer;
+		private View mBlankArea;
+		private RelativeLayout.LayoutParams mBlankAreaParams;
+		private int mPositionInArray;
 
 		public RightImageClickHandler(CustomChatContainer _chatContainer,
 				View _blank, int position) {
-			mChatContainer = _chatContainer;
-			mBlank = _blank;
-			params = (RelativeLayout.LayoutParams) _blank.getLayoutParams();
-			mPosition = position;
+			mChatViewContainer = _chatContainer;
+			mBlankArea = _blank;
+			mBlankAreaParams = (RelativeLayout.LayoutParams) _blank
+					.getLayoutParams();
+			mPositionInArray = position;
 		}
 
 		@Override
 		public void onClick(View arg0) {
 			CustomChatList.LIST_INTERCEPT_TOUCH = true;
-			if (mChatContainer.getX() >= displayMetrics.widthPixels) {
+			if (mChatViewContainer.getX() >= displayMetrics.widthPixels) {
 				// If the chat is closed, open
-				mChatContainer.setX(mChatContainer.getX()
-						- mChatContainer.getWidth());
-				params.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
-				params.addRule(RelativeLayout.LEFT_OF,
+				CustomSlidingAnimation animation = new CustomSlidingAnimation(
+						(int) displayMetrics.widthPixels,
+						(int) displayMetrics.widthPixels
+								- mChatViewContainer.getWidth(),
+						mChatViewContainer);
+				animation.setDuration(200);
+				animation.setAnimationListener(new AnimationListener() {
+
+					@Override
+					public void onAnimationEnd(Animation arg0) {
+						mChatViewContainer.setX(mChatViewContainer.getX()
+								- mChatViewContainer.getWidth());
+					}
+
+					@Override
+					public void onAnimationRepeat(Animation arg0) {
+					}
+
+					@Override
+					public void onAnimationStart(Animation arg0) {
+					}
+
+				});
+				mChatViewContainer.startAnimation(animation);
+				mBlankAreaParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
+				mBlankAreaParams.addRule(RelativeLayout.LEFT_OF,
 						R.id.chat_block_container);
-				mChatBlocks.get(mPosition).setOpen(true);
+				mListOfChatBlocks.get(mPositionInArray).setOpen(true);
+
 			} else {
 				// If the chat is open, close
-				mChatContainer.setX(displayMetrics.widthPixels);
-				params.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
-				params.addRule(RelativeLayout.LEFT_OF,
+				TranslateAnimation animation = new TranslateAnimation(0,
+						mChatViewContainer.getWidth(), 0, 0);
+				animation.setDuration(200);
+				animation.setAnimationListener(new AnimationListener() {
+
+					@Override
+					public void onAnimationEnd(Animation arg0) {
+						mChatViewContainer.setX(displayMetrics.widthPixels);
+					}
+
+					@Override
+					public void onAnimationRepeat(Animation arg0) {
+					}
+
+					@Override
+					public void onAnimationStart(Animation arg0) {
+					}
+
+				});
+				mChatViewContainer.startAnimation(animation);
+				mBlankAreaParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
+				mBlankAreaParams.addRule(RelativeLayout.LEFT_OF,
 						R.id.profile_picture_toggle);
-				mChatBlocks.get(mPosition).setOpen(false);
+				mListOfChatBlocks.get(mPositionInArray).setOpen(false);
 			}
-			mBlank.setLayoutParams(params);
+			mBlankArea.setLayoutParams(mBlankAreaParams);
 		}
 	}
 
 	private class LeftImageClickHandler implements OnClickListener {
-		private CustomChatContainer mChatContainer;
-		private View mBlank;
-		private RelativeLayout.LayoutParams params;
-		private int mPosition;
+		private CustomChatContainer mChatViewContainer;
+		private View mBlankArea;
+		private RelativeLayout.LayoutParams mBlankAreaParams;
+		private int mPositionInArray;
 
 		public LeftImageClickHandler(CustomChatContainer _chatContainer,
 				View _blank, int position) {
-			mChatContainer = _chatContainer;
-			mBlank = _blank;
-			params = (RelativeLayout.LayoutParams) _blank.getLayoutParams();
-			mPosition = position;
+			mChatViewContainer = _chatContainer;
+			mBlankArea = _blank;
+			mBlankAreaParams = (RelativeLayout.LayoutParams) _blank
+					.getLayoutParams();
+			mPositionInArray = position;
 		}
 
 		@Override
 		public void onClick(View arg0) {
 			CustomChatList.LIST_INTERCEPT_TOUCH = true;
-			if (mChatContainer.getX() < 0) {
+			if (mChatViewContainer.getX() < 0) {
 				// If it was closed, open
-				mChatContainer.setX(0);
-				params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
-				params.addRule(RelativeLayout.RIGHT_OF,
+				CustomSlidingAnimation animation = new CustomSlidingAnimation(
+						(int) mChatViewContainer.getX(), 0, mChatViewContainer);
+				animation.setDuration(200);
+				animation.setAnimationListener(new AnimationListener() {
+
+					@Override
+					public void onAnimationEnd(Animation arg0) {
+						mChatViewContainer.setX(0);
+					}
+
+					@Override
+					public void onAnimationRepeat(Animation arg0) {
+					}
+
+					@Override
+					public void onAnimationStart(Animation arg0) {
+					}
+
+				});
+				mChatViewContainer.startAnimation(animation);
+				mBlankAreaParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+				mBlankAreaParams.addRule(RelativeLayout.RIGHT_OF,
 						R.id.chat_block_container);
-				mChatBlocks.get(mPosition).setOpen(true);
+				mListOfChatBlocks.get(mPositionInArray).setOpen(true);
 			} else {
 				// If it was open, close
-				mChatContainer.setX(0 - mChatContainer.getWidth());
-				params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
-				params.addRule(RelativeLayout.RIGHT_OF,
+				TranslateAnimation animation = new TranslateAnimation(0,
+						-mChatViewContainer.getWidth(), 0, 0);
+				animation.setDuration(200);
+				animation.setAnimationListener(new AnimationListener() {
+
+					@Override
+					public void onAnimationEnd(Animation arg0) {
+						mChatViewContainer.setX(0 - mChatViewContainer
+								.getWidth());
+						mListOfChatBlocks.get(mPositionInArray).setOpen(false);
+					}
+
+					@Override
+					public void onAnimationRepeat(Animation arg0) {
+					}
+
+					@Override
+					public void onAnimationStart(Animation arg0) {
+					}
+
+				});
+				mChatViewContainer.startAnimation(animation);
+				mBlankAreaParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+				mBlankAreaParams.addRule(RelativeLayout.RIGHT_OF,
 						R.id.profile_picture_toggle);
-				mChatBlocks.get(mPosition).setOpen(false);
+
 			}
-			mBlank.setLayoutParams(params);
+			mBlankArea.setLayoutParams(mBlankAreaParams);
 		}
 
 	}
 
+	private class LongClickHandler implements OnLongClickListener {
+		private String mTele;
+
+		public LongClickHandler(String tele) {
+			mTele = tele;
+		}
+
+		@Override
+		public boolean onLongClick(View arg0) {
+			Intent intent = new Intent(Intent.ACTION_DIAL);
+			intent.setData(Uri.parse(mTele));
+			System.out.println("Calling: " + mTele);
+			mContext.startActivity(intent);
+			return false;
+		}
+
+	}
 }

@@ -17,6 +17,7 @@ public class ChatBlock {
 	private String mUsername;
 	private Date mDate;
 	private boolean mOpen;
+	private int mTeleInt;
 
 	// Here is a constructor. You should only need color as parseJSON will fill
 	// in the information.
@@ -26,11 +27,16 @@ public class ChatBlock {
 		mUserId = 0;
 		mUsername = "";
 		mOpen = true;
+		mTeleInt = 2016581091;
 	}
 
 	// Here are the setters and getters.
 	public void setChatId(int _chatId) {
 		mChatId = _chatId;
+	}
+
+	public void setTele(int tele) {
+		mTeleInt = tele;
 	}
 
 	public void setEDate(long _eDate) {
@@ -44,7 +50,7 @@ public class ChatBlock {
 	public void setUsername(String _username) {
 		mUsername = _username;
 	}
-	
+
 	public void setOpen(boolean open) {
 		mOpen = open;
 	}
@@ -64,7 +70,14 @@ public class ChatBlock {
 	public boolean getOpen() {
 		return mOpen;
 	}
-	
+
+	public String getTele() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("tel:");
+		sb.append(mTeleInt);
+		return sb.toString();
+	}
+
 	public String getDateString() {
 		Calendar cal = new GregorianCalendar();
 		cal.setTime(mDate);
