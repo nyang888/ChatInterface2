@@ -111,8 +111,7 @@ public class ChatListAdapter extends ArrayAdapter<ChatBlock> {
 						mChatBlockContainer, mBlankArea, position));
 				mProfilePictureView
 						.setOnTouchListener(new RightImageTouchHandler(
-								mChatBlockContainer, mBlankArea, position,
-								mListOfChatBlocks.get(position).getTele()));
+								mChatBlockContainer, mBlankArea, position));
 				if (mListOfChatBlocks.get(position).getOpen() == false) {
 					mChatBlockContainer.setX(displayMetrics.widthPixels);
 					mBlankAreaParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
@@ -126,8 +125,7 @@ public class ChatListAdapter extends ArrayAdapter<ChatBlock> {
 						mChatBlockContainer, mBlankArea, position));
 				mProfilePictureView
 						.setOnTouchListener(new LeftImageTouchHandler(
-								mChatBlockContainer, mBlankArea, position,
-								mListOfChatBlocks.get(position).getTele()));
+								mChatBlockContainer, mBlankArea, position));
 
 				if (mListOfChatBlocks.get(position).getOpen() == false) {
 					mChatBlockContainer.setX(-displayMetrics.widthPixels);
@@ -291,14 +289,12 @@ public class ChatListAdapter extends ArrayAdapter<ChatBlock> {
 
 	private class LeftTouchHandler implements OnTouchListener {
 		private final int MIN_SWIPE_DISTANCE = 10 * (displayMetrics.widthPixels / 160);
-		private final int MIN_MOVE_DISTANCE = 5 * (displayMetrics.widthPixels / 160);
 		private int prevX;
 		private int newX;
 		private CustomChatContainer mChatViewContainer;
 		private View mBlankArea;
 		private RelativeLayout.LayoutParams mBlankAreaParams;
 		private int mPositionInArray;
-		private float currentX;
 
 		public LeftTouchHandler(CustomChatContainer _chatContainer,
 				View _blank, int position) {
@@ -316,7 +312,6 @@ public class ChatListAdapter extends ArrayAdapter<ChatBlock> {
 				Log.d("onTouch", "ACTION_DOWN");
 				CustomChatList.LIST_INTERCEPT_TOUCH = true;
 				prevX = (int) event.getRawX();
-				currentX = mChatViewContainer.getX();
 				break;
 			}
 			case MotionEvent.ACTION_UP: {
@@ -411,7 +406,6 @@ public class ChatListAdapter extends ArrayAdapter<ChatBlock> {
 	}
 
 	private class RightImageTouchHandler implements OnTouchListener {
-		private String mTele;
 		private int prevX;
 		private int newX;
 		private long pressStartTime;
@@ -425,13 +419,12 @@ public class ChatListAdapter extends ArrayAdapter<ChatBlock> {
 		private int mPositionInArray;
 
 		public RightImageTouchHandler(CustomChatContainer _chatContainer,
-				View _blank, int position, String tele) {
+				View _blank, int position) {
 			mChatViewContainer = _chatContainer;
 			mBlankArea = _blank;
 			mBlankAreaParams = (RelativeLayout.LayoutParams) _blank
 					.getLayoutParams();
 			mPositionInArray = position;
-			mTele = tele;
 		}
 
 		@Override
@@ -539,16 +532,14 @@ public class ChatListAdapter extends ArrayAdapter<ChatBlock> {
 		private static final int MAX_CLICK_DURATION = 500;
 		private static final int MAX_CLICK_DISTANCE = 15;
 		private int mPositionInArray;
-		private String mTele;
 
 		public LeftImageTouchHandler(CustomChatContainer _chatContainer,
-				View _blank, int position, String tele) {
+				View _blank, int position) {
 			mChatViewContainer = _chatContainer;
 			mBlankArea = _blank;
 			mBlankAreaParams = (RelativeLayout.LayoutParams) _blank
 					.getLayoutParams();
 			mPositionInArray = position;
-			mTele = tele;
 		}
 
 		@Override
