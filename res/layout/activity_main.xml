@@ -41,6 +41,7 @@
             android:layout_marginRight="5dp"
             android:layout_marginTop="5dp"
             android:background="@drawable/button"
+            android:minWidth="50dp"
             android:text="@string/close"
             android:textColor="#ffffffff"
             android:textStyle="bold" />
@@ -55,6 +56,7 @@
             android:layout_marginRight="5dp"
             android:layout_marginTop="5dp"
             android:background="@drawable/emergency_call_button"
+            android:minWidth="50dp"
             android:text="@string/call_911"
             android:textColor="#ffffffff"
             android:textStyle="bold" />
@@ -132,6 +134,7 @@
             android:layout_marginRight="5dp"
             android:layout_marginTop="5dp"
             android:background="@drawable/button"
+            android:minWidth="55dp"
             android:text="@string/send"
             android:textColor="#ffffffff"
             android:textStyle="bold" />
@@ -143,12 +146,11 @@
         android:layout_height="wrap_content"
         android:layout_above="@id/send_message_block"
         android:layout_below="@id/action_bar"
-        android:animateLayoutChanges="false"
         android:clickable="true"
+        android:clipChildren="false"
         android:divider="#00ffffff"
         android:dividerHeight="0dp"
         android:scrollbars="none"
-        android:splitMotionEvents="false"
         android:stackFromBottom="true"
         android:transcriptMode="normal" />
 

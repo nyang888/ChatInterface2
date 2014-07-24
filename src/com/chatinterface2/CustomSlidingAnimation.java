@@ -3,23 +3,33 @@ package com.chatinterface2;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.Transformation;
+import android.widget.RelativeLayout;
 
 public class CustomSlidingAnimation extends Animation {
-	private final int targetX;
-	private final int currentX;
+	private final int slideAmount;
 	private final View view;
+	private RelativeLayout.LayoutParams params;
+	private int originLeft;
+	private int originRight;
 
-	public CustomSlidingAnimation(int _currentX, int _targetX, View _view) {
-		targetX = _targetX;
+	public CustomSlidingAnimation(int _slideAmount, View _view) {
+		// We initialized based on how much we want to slide by
+		slideAmount = _slideAmount;
 		view = _view;
-		currentX = _currentX;
+		params = (RelativeLayout.LayoutParams) view.getLayoutParams();
+		originLeft = params.leftMargin;
+		originRight = params.rightMargin;
 	}
 
 	@Override
 	protected void applyTransformation(float interpolatedTime, Transformation t) {
-		int newX;
-		newX = currentX + (int) ((targetX - currentX) * interpolatedTime);
-		view.setX(newX);
+		// We calculate the amount to move based on the time.
+		int newMargin;
+		newMargin = (int) ((slideAmount) * interpolatedTime);
+		// Here we set the marginParams based on the calculated time.
+		params.leftMargin = originLeft + newMargin;
+		params.rightMargin = originRight - newMargin;
+		view.setLayoutParams(params);
 	}
 
 	@Override

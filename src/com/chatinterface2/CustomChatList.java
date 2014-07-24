@@ -6,7 +6,6 @@ import org.json.JSONObject;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.widget.ArrayAdapter;
@@ -14,7 +13,6 @@ import android.widget.ListView;
 
 public class CustomChatList extends ListView {
 	private ArrayList<ChatBlock> mListOfChatBlocks = new ArrayList<ChatBlock>();
-	private DisplayMetrics displayMetrics;
 	public static boolean LIST_INTERCEPT_TOUCH; // This variable will be
 												// accessed by all the
 												// touchListeners so that the
@@ -23,6 +21,7 @@ public class CustomChatList extends ListView {
 
 	public CustomChatList(Context _context) {
 		super(_context);
+		// We add a empty block into the list for some extra spacing.
 		LIST_INTERCEPT_TOUCH = true;
 		mListOfChatBlocks.add(new EmptyBlock());
 	}
@@ -91,18 +90,22 @@ public class CustomChatList extends ListView {
 	}
 
 	public void collapseAll() {
+		// Here we go through the entire list of items and set them as false.
 		for (int i = 0; i < mListOfChatBlocks.size(); i++) {
 			Log.d("collapseAll", "mChatContainer Succeed");
 			mListOfChatBlocks.get(i).setOpen(false);
+			// After updating values, we update the Adapter
 			((ArrayAdapter<ChatBlock>) super.getAdapter())
 					.notifyDataSetChanged();
 		}
 	}
 
 	public void expandAll() {
+		// Here we go through and set them as open
 		for (int i = 0; i < mListOfChatBlocks.size(); i++) {
 			Log.d("collapseAll", "mChatContainer Succeed");
 			mListOfChatBlocks.get(i).setOpen(true);
+			// Then we update the adapter
 			((ArrayAdapter<ChatBlock>) super.getAdapter())
 					.notifyDataSetChanged();
 		}

@@ -3,98 +3,230 @@
   realizations="true" associations="true" dependencies="false" nesting-relationships="true">  
   <class id="1" language="java" name="com.chatinterface2.TextBlock" project="ChatInterface2" 
     file="/ChatInterface2/src/com/chatinterface2/TextBlock.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="601" y="862"/>    
+    <position height="153" width="166" x="91" y="1229"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="2" language="java" name="com.chatinterface2.ChatListAdapter" project="ChatInterface2" 
-    file="/ChatInterface2/src/com/chatinterface2/ChatListAdapter.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="318" y="132"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
-      visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
-    </display>  
-  </class>  
-  <class id="3" language="java" name="com.chatinterface2.CustomBlankCell" project="ChatInterface2" 
-    file="/ChatInterface2/src/com/chatinterface2/CustomBlankCell.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="-327" y="117"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
-      visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
-    </display>  
-  </class>  
-  <class id="4" language="java" name="com.chatinterface2.CustomChatContainer" project="ChatInterface2" 
+  <class id="2" language="java" name="com.chatinterface2.CustomChatContainer" project="ChatInterface2" 
     file="/ChatInterface2/src/com/chatinterface2/CustomChatContainer.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="171" width="332" x="29" y="766"/>    
-    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+    <position height="135" width="249" x="985" y="1229"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="5" language="java" name="com.chatinterface2.ChatBlock" project="ChatInterface2" 
+  <class id="3" language="java" name="com.chatinterface2.ChatBlock" project="ChatInterface2" 
     file="/ChatInterface2/src/com/chatinterface2/ChatBlock.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="957" y="922"/>    
+    <position height="495" width="219" x="91" y="694"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="6" language="java" name="com.chatinterface2.MainActivity" project="ChatInterface2" 
+  <class id="4" language="java" name="com.chatinterface2.MainActivity" project="ChatInterface2" 
     file="/ChatInterface2/src/com/chatinterface2/MainActivity.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="934" y="212"/>    
+    <position height="423" width="221" x="91" y="-34"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="7" language="java" name="com.chatinterface2.CustomChatList" project="ChatInterface2" 
-    file="/ChatInterface2/src/com/chatinterface2/CustomChatList.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="945" y="567"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
-      visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
-    </display>  
-  </class>  
-  <class id="8" language="java" name="com.chatinterface2.ChatListAdapter.RightTouchHandler" project="ChatInterface2" 
+  <class id="5" language="java" name="com.chatinterface2.ChatListAdapter.LeftTouchHandler" project="ChatInterface2" 
     file="/ChatInterface2/src/com/chatinterface2/ChatListAdapter.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="318" y="433"/>    
+    <position height="189" width="236" x="549" y="694"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="9" language="java" name="com.chatinterface2.EmptyBlock" project="ChatInterface2" 
+  <class id="6" language="java" name="com.chatinterface2.CustomChatList" project="ChatInterface2" 
+    file="/ChatInterface2/src/com/chatinterface2/CustomChatList.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="225" width="243" x="91" y="429"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="7" language="java" name="com.chatinterface2.EmptyBlock" project="ChatInterface2" 
     file="/ChatInterface2/src/com/chatinterface2/EmptyBlock.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="637" y="1007"/>    
+    <position height="81" width="91" x="297" y="1229"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <nesting id="10">    
-    <end type="SOURCE" refId="2"/>    
-    <end type="TARGET" refId="8"/>  
+  <class id="8" language="java" name="com.chatinterface2.ChatListAdapter" project="ChatInterface2" 
+    file="/ChatInterface2/src/com/chatinterface2/ChatListAdapter.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="171" width="257" x="730" y="429"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="9" language="java" name="com.chatinterface2.ChatListAdapter.LeftImageTouchHandler" project="ChatInterface2" 
+    file="/ChatInterface2/src/com/chatinterface2/ChatListAdapter.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="243" width="264" x="825" y="694"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="10" language="java" name="com.chatinterface2.ChatListAdapter.LongClickHandler" project="ChatInterface2" 
+    file="/ChatInterface2/src/com/chatinterface2/ChatListAdapter.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="117" width="159" x="350" y="694"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="11" language="java" name="com.chatinterface2.CustomBlankCell" project="ChatInterface2" 
+    file="/ChatInterface2/src/com/chatinterface2/CustomBlankCell.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="655" y="33"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="12" language="java" name="com.chatinterface2.ChatListAdapter.RightImageTouchHandler" 
+    project="ChatInterface2" file="/ChatInterface2/src/com/chatinterface2/ChatListAdapter.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="243" width="269" x="1129" y="694"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="13" language="java" name="com.chatinterface2.ChatListAdapter.RightTouchHandler" project="ChatInterface2" 
+    file="/ChatInterface2/src/com/chatinterface2/ChatListAdapter.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="189" width="241" x="1438" y="694"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="14" language="java" name="com.chatinterface2.CustomSlidingAnimation" project="ChatInterface2" 
+    file="/ChatInterface2/src/com/chatinterface2/CustomSlidingAnimation.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1204" y="51"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <association id="15">    
+    <end type="SOURCE" refId="8" navigable="false">      
+      <attribute id="16" name="mListOfChatBlocks"/>      
+      <multiplicity id="17" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="3" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <nesting id="18">    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="12"/>  
   </nesting>  
-  <generalization id="11">    
-    <bendpoint x="820" y="863"/>    
+  <association id="19">    
+    <end type="SOURCE" refId="5" navigable="false">      
+      <attribute id="20" name="mChatViewContainer">        
+        <position height="18" width="110" x="887" y="1168"/>      
+      </attribute>      
+      <multiplicity id="21" minimum="0" maximum="1">        
+        <position height="16" width="23" x="986" y="1188"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="2" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="22">    
+    <end type="SOURCE" refId="9" navigable="false">      
+      <attribute id="23" name="mChatViewContainer">        
+        <position height="18" width="110" x="1045" y="1060"/>      
+      </attribute>      
+      <multiplicity id="24" minimum="0" maximum="1">        
+        <position height="16" width="23" x="1048" y="1076"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="2" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="25">    
     <end type="SOURCE" refId="1"/>    
-    <end type="TARGET" refId="5"/>  
+    <end type="TARGET" refId="3"/>  
   </generalization>  
-  <generalization id="12">    
-    <bendpoint x="820" y="1008"/>    
-    <end type="SOURCE" refId="9"/>    
+  <association id="26">    
+    <end type="SOURCE" refId="4" navigable="false">      
+      <attribute id="27" name="mChatList"/>      
+      <multiplicity id="28" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="6" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <nesting id="29">    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="9"/>  
+  </nesting>  
+  <association id="30">    
+    <end type="SOURCE" refId="6" navigable="false">      
+      <attribute id="31" name="mListOfChatBlocks"/>      
+      <multiplicity id="32" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="3" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <nesting id="33">    
+    <end type="SOURCE" refId="8"/>    
     <end type="TARGET" refId="5"/>  
+  </nesting>  
+  <nesting id="34">    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="10"/>  
+  </nesting>  
+  <association id="35">    
+    <end type="SOURCE" refId="12" navigable="false">      
+      <attribute id="36" name="mChatViewContainer">        
+        <position height="18" width="110" x="1185" y="1051"/>      
+      </attribute>      
+      <multiplicity id="37" minimum="0" maximum="1">        
+        <position height="16" width="23" x="1182" y="1069"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="2" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <nesting id="38">    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="13"/>  
+  </nesting>  
+  <association id="39">    
+    <end type="SOURCE" refId="13" navigable="false">      
+      <attribute id="40" name="mChatViewContainer">        
+        <position height="18" width="110" x="1257" y="1126"/>      
+      </attribute>      
+      <multiplicity id="41" minimum="0" maximum="1">        
+        <position height="16" width="23" x="1254" y="1150"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="2" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="42">    
+    <end type="SOURCE" refId="7"/>    
+    <end type="TARGET" refId="3"/>  
   </generalization>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
     accessors="true" visibility="true">    

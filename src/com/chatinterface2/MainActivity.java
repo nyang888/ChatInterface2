@@ -2,6 +2,7 @@ package com.chatinterface2;
 
 import org.json.JSONArray;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
@@ -10,6 +11,7 @@ import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.util.DisplayMetrics;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -40,6 +42,7 @@ public class MainActivity extends FragmentActivity implements LocationListener {
 	private LatLng mCurrentLatLng;
 	private Button mLocationButton;
 	private Button mAddMediaButton;
+	public static DisplayMetrics displayMetrics;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +51,7 @@ public class MainActivity extends FragmentActivity implements LocationListener {
 		CURRENT_USER_ID = 10001714; // This is a test userId from the testJson.
 		// Use static variable to allow access from the different views.
 		MAP_WRAPPER = (FrameLayout) findViewById(R.id.map_wrapper);
+		displayMetrics = getResources().getDisplayMetrics();
 
 		// Configure the google map: No Zoom in/out Button
 		mGoogleMap = ((SupportMapFragment) getSupportFragmentManager()
@@ -77,6 +81,13 @@ public class MainActivity extends FragmentActivity implements LocationListener {
 				mChatList.getArrayList());
 
 		mChatList.setAdapter(mAdapter);
+
+		// If the phone version is above API10, then MotionEventSplit is default
+		// as true. Therefore we need to set it as false. API10 and below should
+		// not have to do anything.
+		if (android.os.Build.VERSION.SDK_INT > android.os.Build.VERSION_CODES.GINGERBREAD_MR1) {
+			mChatList.setMotionEventSplittingEnabled(false);
+		}
 
 		// Set up the ToggleChat Button
 		mToggleChat = (ToggleButton) findViewById(R.id.toggle_chat);
@@ -108,6 +119,7 @@ public class MainActivity extends FragmentActivity implements LocationListener {
 			@Override
 			public void onClick(View arg0) {
 				Intent intent = new Intent(Intent.ACTION_DIAL);
+				// Only fills in the Dialer, DOES NOT call automatically.
 				intent.setData(Uri.parse("tel:911"));
 				startActivity(intent);
 			}

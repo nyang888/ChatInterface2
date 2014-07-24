@@ -79,6 +79,8 @@ public class ChatBlock {
 	}
 
 	public String getDateString() {
+		// We need to create a calendar because most of the necessary methods in
+		// date are deprecated.
 		Calendar cal = new GregorianCalendar();
 		cal.setTime(mDate);
 		StringBuilder sb = new StringBuilder();
