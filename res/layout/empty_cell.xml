@@ -3,14 +3,14 @@
     android:id="@+id/empty_cell"
     android:layout_width="match_parent"
     android:layout_height="50dp"
-    android:background="#00ffffff"
+    android:background="@null"
     android:clickable="false" >
 
-    <com.chatinterface2.CustomBlankCell
+    <com.nelson.chatinterface.chatviews.CustomBlankCell
         android:id="@+id/empty_blank"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#00ffffff"
+        android:background="@null"
         android:clickable="false"
         android:focusable="false" />
 

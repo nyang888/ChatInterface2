@@ -11,13 +11,13 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true" >
 
-        <com.chatinterface2.CustomChatContainer
+        <com.nelson.chatinterface.chatviews.CustomChatContainer
             android:id="@+id/chat_block_container"
             android:layout_width="300dp"
             android:layout_height="match_parent"
             android:layout_alignParentRight="true" />
 
-        <com.chatinterface2.CustomBlankCell
+        <com.nelson.chatinterface.chatviews.CustomBlankCell
             android:id="@+id/empty_blank"
             android:layout_width="match_parent"
             android:layout_height="fill_parent"
@@ -25,7 +25,7 @@
             android:layout_alignParentLeft="true"
             android:layout_alignTop="@id/chat_block_container"
             android:layout_toLeftOf="@id/chat_block_container"
-            android:background="#00ffffff" />
+            android:background="@null" />
 
     </RelativeLayout>
 

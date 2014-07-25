@@ -3,7 +3,7 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.chatinterface2.MainActivity"
+    tools:context="com.nelson.chatinterface.MainActivity"
     tools:ignore="MergeRootFrame" >
 
     <FrameLayout
@@ -13,13 +13,20 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true" >
+        android:layout_alignParentTop="true"
+        android:background="@null" >
 
         <fragment
             android:id="@+id/map"
             android:name="com.google.android.gms.maps.SupportMapFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
+
+        <ImageView
+            android:id="@+id/transparent_image"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/transparent_drawable" />
     </FrameLayout>
 
     <RelativeLayout
@@ -140,15 +147,16 @@
             android:textStyle="bold" />
     </RelativeLayout>
 
-    <com.chatinterface2.CustomChatList
+    <com.nelson.chatinterface.chatviews.CustomChatList
         android:id="@+id/chat"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_above="@id/send_message_block"
         android:layout_below="@id/action_bar"
+        android:background="@null"
         android:clickable="true"
         android:clipChildren="false"
-        android:divider="#00ffffff"
+        android:divider="@null"
         android:dividerHeight="0dp"
         android:scrollbars="none"
         android:stackFromBottom="true"
